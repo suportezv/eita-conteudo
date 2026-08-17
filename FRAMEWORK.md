@@ -38,6 +38,12 @@ Herdadas do estúdio ana-conteudo (validadas nos testes 01 e 02 e na leva @luxos
 - Trilha discreta (vol ~0.12 a 0.15) gerada via ElevenLabs sound-generation; SFX (whoosh, impact, riser, scratch) sincronizados aos cortes.
 - Duração alvo: **20 a 60s**. Loudness final: **-14 LUFS**.
 
+## Editoria "Do Blog" (carrosséis derivados de posts do blog)
+
+Sistema visual fixo definido no carrossel-01 (detalhes em `projects/carrossel-01-culpa-de-descansar/ITERACAO-EDITORIA.md`): selo NOVO NO BLOG com pulse-dot, barra `mentoravirtual.com.br/blog · NN/NN` no rodapé de todos os slides, byline da autora na capa e chip de tempo de leitura.
+
+- **Tempo de leitura: SEMPRE o valor do badge do post no blog.** Nunca estimar. O badge fica no card do post no índice `/blog` (via MCP da Vercel: `web_fetch_vercel_url` em `eita-teste.vercel.app/blog`).
+
 ## Fórmula da caption (produto)
 
 1. Hook em 1 linha (dor ou cena concreta, sem travessão)
