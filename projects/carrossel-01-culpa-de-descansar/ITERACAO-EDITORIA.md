@@ -33,7 +33,7 @@ Este carrossel inaugura a editoria de posts derivados do blog. Os elementos abai
 
 3. Byline da autora na capa, entre o título e a ilustração: avatar redondo de 72px da Anaclaudia (vou fornecer a foto; se não houver, use um círculo em #D6F7EB como placeholder), ao lado do texto em duas linhas: linha 1 "Anaclaudia Zani" em League Spartan 700, 26px, #17202A; linha 2 "Neurocientista criadora do método EITA" em JetBrains Mono 500, 18px, #65727F.
 
-4. Chip de leitura na capa, ao lado do selo ou sob a byline: LEITURA · 6 MIN em JetBrains Mono 600, 18px, dentro de uma pílula com fundo #FFFFFF e borda #DFE8EB.
+4. Chip de leitura na capa, ao lado do selo ou sob a byline: LEITURA · 10 MIN em JetBrains Mono 600, 18px, dentro de uma pílula com fundo #FFFFFF e borda #DFE8EB. (O valor vem do badge do post no blog, que marca 10 min; não estimar.)
 
 5. No slide 9, acima da linha do CVV, adicione uma linha discreta em JetBrains Mono 500, 20px, cor #65727F: O texto completo está no blog. O CTA principal continua sendo a pílula "Conversa com a EITA. Link na bio.".
 

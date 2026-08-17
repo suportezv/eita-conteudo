@@ -28,7 +28,7 @@ Objetivo: qualquer pessoa que já viu o site reconhecer em meio segundo que o po
 1. **Selo NOVO NO BLOG**: pílula branca com borda fina #DFE8EB, ponto verde "vivo" (#1EC46C, o pulse-dot do site) e o texto NOVO NO BLOG em JetBrains Mono, caps, tracking largo. Sempre no topo esquerdo da capa. É o análogo do selo "Central de conhecimento" do cabeçalho do site.
 2. **Barra de endereço no rodapé de todos os slides**: `mentoravirtual.com.br/blog` em JetBrains Mono pequeno, com a numeração integrada na mesma linha (ex.: `mentoravirtual.com.br/blog · 03/09`). Vira o chassi da editoria: viu a barra, é post de blog. Também resolve a numeração dentro da zona segura.
 3. **Byline da autora na capa**, espelhando o cabeçalho do artigo no site: avatar redondo da Ana, "Anaclaudia Zani" e, embaixo, "Neurocientista criadora do método EITA". Sinaliza artigo com autoria, não meme de feed.
-4. **Chip de leitura na capa**: `LEITURA · 6 MIN` em mono, como o badge dos cards do blog.
+4. **Chip de leitura na capa**: `LEITURA · 10 MIN` em mono, copiando o valor do badge do card do post no blog (nunca estimar: o site é a fonte).
 
 Complementos: eyebrow de categoria no formato do site (traço curto + texto mono em verde profundo #0A7757), abrindo espaço para codificar categorias por cor no futuro; e uma linha discreta no slide final, "O texto completo está no blog", acima do rodapé do CVV (o CTA principal continua sendo "Conversa com a EITA. Link na bio.").
 
