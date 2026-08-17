@@ -18,3 +18,8 @@ projects/**/render-*/assets/
 projects/**/render-*/uploads/
 projects/**/*.jpeg
 projects/**/*.jpg
+projects/**/final/support.js
+projects/**/final/.thumbnail
+projects/**/final/assets/
+projects/**/final/uploads/
+projects/**/final/render-local.html
