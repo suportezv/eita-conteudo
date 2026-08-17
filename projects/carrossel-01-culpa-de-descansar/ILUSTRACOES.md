@@ -15,17 +15,23 @@ Diagnóstico da equipe sobre a v2: diagramação com espaços vazios e poucos el
 
 **Consistência entre imagens**: a partir da segunda geração, passar a imagem aprovada do teste como `reference_image_urls` (o nano-banana-pro aceita 1 referência). Personagem recorrente: mesma pessoa de cabelo escuro ondulado do teste.
 
-## Set do carrossel-01 (cenas propostas, uma por slide vazio)
+## Set do carrossel-01: GERADO E COMPLETO (2026-08-17, estilo aprovado pela equipe)
 
-1. **Slide 2** (a conta que não fecha): calendário de férias evaporando ou copo furado sendo enchido; a água escoa por baixo.
-2. **Slide 4** (a parte incômoda): pessoa tentando colar uma etiqueta verde de "produtivo" numa rede de descanso, e a etiqueta descolando.
-3. **Slide 5** (pedágio): JÁ GERADA no teste (pessoa no sofá com balão de checklist). Usar a do nano-banana-pro.
-4. **Slide 7** (modo padrão): cabeça de perfil com constelação de pontos verdes conectados acendendo por dentro.
-5. **Slide 9** (fechamento): a EITA (avatar existente) sentada no sofá ao lado da pessoa; alternativa: usar só o avatar oficial já presente.
+Todas em nano-banana-pro, 1:1, com a imagem do teste como referência de estilo/personagem. Baixar pelo widget da conversa ou pela galeria do Kairogen (arquivos `.png` em nome do gen id abaixo).
 
-Slides 3, 6 e 8 já têm estrutura visual própria (bullets, colunas, passos numerados); não precisam de ilustração, no máximo mais respiro.
+| Slide | Cena | generation_id | Arquivo no CDN |
+|---|---|---|---|
+| 2 (conta que não fecha) | Copo com rachadura sendo enchido, água vazando | `6a8304e1314f9a54dbe06f40` | `bf81bbb7-...png` |
+| 4 (parte incômoda) | Etiqueta verde que não cola na rede | `6a83057e0362cba60bf16315` | `6b2e13ea-...png` |
+| 5 (pedágio) | Pessoa no sofá com balão de checklist (a do teste) | `6a8303d67adf5e35b028474f` | `d23b3601-...png` |
+| 7 (modo padrão) | Cabeça de perfil com constelação verde | `6a8305cb7adf5e35b02855ca` | `41669f01-...png` |
+| 9 (fechamento) | Pessoa relaxada com celular de brilho verde e balão de conversa | `6a8305cf314f9a54dbe07623` | `a832f5e1-...png` |
 
-Custo estimado do set restante: 4 imagens x 6 créditos = ~24 créditos (sobram ~254 na conta). Concorrência do plano: 2 imagens por vez; gerar em ondas de 2.
+Slides 3, 6 e 8 já têm estrutura visual própria (bullets, colunas, passos numerados); não levam ilustração.
+
+Custo real do projeto: 32 créditos (5 x 6 do nano-banana-pro + 2 do teste seedream). Saldo restante: ~254.
+
+**Operacional aprendido**: com `wait_for_completion=true` o cliente MCP estoura em 60s; gerar sempre assíncrono (`false`) e poll com `get_generation`. O limite de 2 imagens simultâneas conta gerações que acabaram de completar; se der `GENERATION_LIMIT_REACHED`, aguardar a fila e reenviar.
 
 ## Regra de diagramação derivada (para o prompt de iteração no Claude Design)
 
