@@ -19,9 +19,9 @@ Fonte: `render-v2/Carrossel Culpa do Descanso.dc.html`. Veredicto: **aprovada co
 | Zero travessões | OK (grep no HTML) |
 | Copy intacta | OK |
 
-## Ajuste obrigatório antes de exportar
+## Nota sobre numeração
 
-- **A numeração dos slides sumiu.** O pedido era a barra com numeração integrada (`mentoravirtual.com.br/blog · 03/09`) e a v2 trouxe a barra sem o número em todos os slides. Numeração importa em carrossel (retenção e senso de progresso). Pedir no Claude Design: "adicione ' · NN/09' ao final da barra de endereço de cada slide, com o número do slide em dois dígitos".
+A barra veio sem o `· NN/09` porque a equipe removeu de propósito. Regra permanente registrada no FRAMEWORK.md: carrossel não leva numeração de slide. A observação de "ajuste obrigatório" da primeira versão desta revisão está cancelada.
 
 ## Conferir no preview da plataforma (possível, não certo)
 

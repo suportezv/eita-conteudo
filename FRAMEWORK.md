@@ -43,6 +43,7 @@ Herdadas do estúdio ana-conteudo (validadas nos testes 01 e 02 e na leva @luxos
 Sistema visual fixo definido no carrossel-01 (detalhes em `projects/carrossel-01-culpa-de-descansar/ITERACAO-EDITORIA.md`): selo NOVO NO BLOG com pulse-dot, barra `mentoravirtual.com.br/blog · NN/NN` no rodapé de todos os slides, byline da autora na capa e chip de tempo de leitura.
 
 - **Tempo de leitura: SEMPRE o valor do badge do post no blog.** Nunca estimar. O badge fica no card do post no índice `/blog` (via MCP da Vercel: `web_fetch_vercel_url` em `eita-teste.vercel.app/blog`).
+- **NUNCA numerar os slides** (nem 01/09, nem integrado à barra de endereço). Decisão da equipe em 2026-08-17, vale para todo carrossel.
 
 ## Fórmula da caption (produto)
 

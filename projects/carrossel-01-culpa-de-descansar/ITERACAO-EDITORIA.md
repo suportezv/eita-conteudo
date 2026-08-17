@@ -29,7 +29,7 @@ Este carrossel inaugura a editoria de posts derivados do blog. Os elementos abai
 
 1. Selo NOVO NO BLOG (só na capa, topo esquerdo, acima do título): pílula branca com borda 1px #DFE8EB, contendo um ponto redondo de 10px em #1EC46C seguido do texto NOVO NO BLOG em JetBrains Mono 600, caps, letter-spacing 0.14em, cor #17202A. Tamanho confortável para leitura em thumbnail.
 
-2. Barra de endereço no rodapé de TODOS os slides, substituindo a numeração solta: uma linha única em JetBrains Mono, 20 a 22px, cor #65727F, alinhada à esquerda, com o conteúdo: mentoravirtual.com.br/blog · NN/09 (NN é o número do slide). Deixe pelo menos 96px entre essa barra e a borda inferior do slide, porque a interface do Instagram cobre a faixa de baixo.
+2. Barra de endereço no rodapé de TODOS os slides, substituindo a numeração solta: uma linha única em JetBrains Mono, 20 a 22px, cor #65727F, alinhada à esquerda, com o conteúdo: mentoravirtual.com.br/blog (sem numeração de slide; regra da casa). Deixe pelo menos 96px entre essa barra e a borda inferior do slide, porque a interface do Instagram cobre a faixa de baixo.
 
 3. Byline da autora na capa, entre o título e a ilustração: avatar redondo de 72px da Anaclaudia (vou fornecer a foto; se não houver, use um círculo em #D6F7EB como placeholder), ao lado do texto em duas linhas: linha 1 "Anaclaudia Zani" em League Spartan 700, 26px, #17202A; linha 2 "Neurocientista criadora do método EITA" em JetBrains Mono 500, 18px, #65727F.
 
