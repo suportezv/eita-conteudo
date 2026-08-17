@@ -47,7 +47,7 @@ Herdadas do estúdio ana-conteudo (validadas nos testes 01 e 02 e na leva @luxos
 
 ## Fluxo por vídeo
 
-1. Bruto (Drive público ou anexo na conversa) + briefing (pilar, mensagem central, duração, data)
+1. Bruto (Drive público ou anexo na conversa) + briefing (`projects/_template/BRIEFING.md` copiado para `projects/<nome>/`)
 2. Proxy SDR (se HLG) + transcrição Scribe (timestamps por palavra)
 3. Decupagem/cortes (mapear falas de impacto e picos de áudio)
 4. Cor

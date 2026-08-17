@@ -7,6 +7,8 @@ TOOLS_DIR="${TOOLS_DIR:-/workspace}"
 VIDEO_USE="$TOOLS_DIR/browser-use/video-use"
 HYPERFRAMES="$TOOLS_DIR/heygen-com/hyperframes"
 
+mkdir -p "$TOOLS_DIR"
+
 echo "== 1/5 ffmpeg =="
 if ! command -v ffmpeg >/dev/null; then
   apt-get update -qq && apt-get install -y -qq ffmpeg fonts-liberation

@@ -16,11 +16,25 @@ Este repositório é o **EITA Conteúdo Studio**: edição e agendamento de cont
 - Ferramentas: `video-use` e `hyperframes` clonados em `/workspace/browser-use/` e `/workspace/heygen-com/` (Linux/cloud) ou `~/video-editor/` (Mac). Skills registradas em `~/.claude/skills/`.
 - Ambiente novo (container limpo): rode `bash scripts/setup.sh` e depois `bash scripts/validate.sh`.
 
+## Estado do ambiente (última verificação: 2026-08-17, sessão cloud)
+
+Toolchain instalado e validado num container limpo pelo `scripts/setup.sh` (leva ~2 min):
+
+| Item | Estado |
+|---|---|
+| ffmpeg | 6.1.1 do apt, com `subtitles` e `zscale` (3 filtros) |
+| fonts-liberation | 12 fontes (fallback do lettering no Linux) |
+| video-use | clone `92c2b34`, `.venv` via `uv sync`, patch `is_portrait_source` aplicado |
+| hyperframes + media-use | 9 skills registradas em `~/.claude/skills/` |
+| PIL / numpy | pillow 12.3.0 / numpy 2.4.6 |
+
+**Rede deste environment: NÃO serve para produção.** O gateway responde 403 no CONNECT para `drive.google.com`, `drive.usercontent.google.com` e `api.elevenlabs.io`, ou seja, sem brutos do Drive e sem transcrição/trilha do ElevenLabs. Passam: `raw.githubusercontent.com` (301), github.com, pypi, npm e apt. Diagnóstico rápido: `curl -sS "$HTTPS_PROXY/__agentproxy/status"` lista as negativas recentes em `recentRelayFailures`. Para editar de verdade, trocar para o environment com network Custom (o "ana-conteudo" já tem os três domínios liberados) no seletor de nuvem acima da caixa de mensagem em claude.ai/code.
+
 ## IDs e contas
 
 - Instagram do produto: **confirmar handle com a equipe** (planilha de mídia usa "@eita.mentoravirtual").
-- Metricool: conta da agência suporte@mentoravirtual.com.br. **PENDENTE: conectar a marca da EITA no painel do Metricool** (hoje só existe "anaclaudia.eita", blog_id 6707687). Timezone America/Sao_Paulo.
-- Kairogen: conta suporte@zavi.ag, plano Essential (`veo3-1-lite` para vídeo).
+- Metricool: conta da agência suporte@mentoravirtual.com.br. **PENDENTE: conectar a marca da EITA no painel do Metricool.** Reconfirmado em 2026-08-17 via `getBrandSettings`: existe uma única marca, "anaclaudia.eita" (blog_id 6707687, userId 5161049, Instagram `anaclaudia.eita`, timezone America/Sao_Paulo). Enquanto a marca da EITA não existir, não há onde agendar o conteúdo do produto.
+- Kairogen: conta suporte@zavi.ag, plano Essential (`veo3-1-lite` para vídeo). Verificado em 2026-08-17: 286 créditos, crédito a R$ 0,175, renovação 2026-09-11, concorrência máxima 4 gerações (2 imagem + 2 vídeo). Para lote de vídeos, gerar em ondas de 2.
 - ElevenLabs: chave em `.env` na raiz do video-use (transcrição Scribe + SFX/trilha + TTS). Voz clonada da **Anaclaudia**: voice_id `XsU4z9JE7JPZzkVPg4GW` (`eleven_multilingual_v2`, stability 0.5, similarity 0.8). A voz da **personagem EITA** dos áudios do WhatsApp é outra: **PENDENTE mapear voice_id com a equipe**.
 - Drive (brutos): pasta do projeto **PENDENTE: criar/apontar** (padrão: pasta com "qualquer pessoa com o link: leitor" para download direto).
 

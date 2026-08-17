@@ -4,7 +4,7 @@ Estúdio de edição e agendamento de conteúdo para as redes da **EITA Mentora 
 
 - **`FRAMEWORK.md`**: persona, regras, pilares, assinaturas de edição e fluxo por vídeo.
 - **`CLAUDE.md`**: memória persistente do projeto (IDs, contas, gotchas).
-- **`projects/`**: um subdiretório por vídeo (briefing, transcrição, scripts de edição, caption).
+- **`projects/`**: um subdiretório por vídeo (briefing, transcrição, scripts de edição, caption). Comece copiando `projects/_template/`.
 - **`scripts/`**: setup e validação do ambiente (Linux/cloud).
 - **`patches/`**: correções necessárias nas ferramentas.
 
