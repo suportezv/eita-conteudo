@@ -43,7 +43,17 @@ echo "== 5/5 estúdio =="
 ln -sfn "$REPO_ROOT" ~/eita-conteudo
 echo "~/eita-conteudo -> $REPO_ROOT"
 
-if [ ! -f "$VIDEO_USE/.env" ]; then
+if [ -n "${ELEVENLABS_API_KEY:-}" ]; then
+  case "$ELEVENLABS_API_KEY" in
+    sk_*)
+      printf 'ELEVENLABS_API_KEY=%s\n' "$ELEVENLABS_API_KEY" > "$VIDEO_USE/.env"
+      echo "ELEVENLABS_API_KEY (sk_) gravada em $VIDEO_USE/.env"
+      ;;
+    *)
+      echo "ATENÇÃO: ELEVENLABS_API_KEY no ambiente NÃO começa com sk_ (provável key ID de 64 hex). Não gravada; corrija a env var do environment."
+      ;;
+  esac
+elif [ ! -f "$VIDEO_USE/.env" ]; then
   echo "PENDENTE: gravar ELEVENLABS_API_KEY em $VIDEO_USE/.env (peça ao usuário; chave sk_ de 51 chars)"
 fi
 echo "Setup concluído. Rode: bash $REPO_ROOT/scripts/validate.sh"

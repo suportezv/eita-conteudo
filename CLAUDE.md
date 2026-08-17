@@ -28,23 +28,21 @@ Toolchain instalado e validado num container limpo pelo `scripts/setup.sh` (leva
 | hyperframes + media-use | 9 skills registradas em `~/.claude/skills/` |
 | PIL / numpy | pillow 12.3.0 / numpy 2.4.6 |
 
-**Rede deste environment: NÃO serve para produção.** O gateway responde 403 no CONNECT para `drive.google.com`, `drive.usercontent.google.com` e `api.elevenlabs.io`, ou seja, sem brutos do Drive e sem transcrição/trilha do ElevenLabs. Passam: `raw.githubusercontent.com` (301), github.com, pypi, npm e apt. Diagnóstico rápido: `curl -sS "$HTTPS_PROXY/__agentproxy/status"` lista as negativas recentes em `recentRelayFailures`. Para editar de verdade, trocar para o environment com network Custom (o "ana-conteudo" já tem os três domínios liberados) no seletor de nuvem acima da caixa de mensagem em claude.ai/code.
+**Rede: liberada desde 2026-08-17 (tarde).** `drive.google.com` (302), `drive.usercontent.google.com` e `api.elevenlabs.io` respondem HTTP normal (404 na raiz é o esperado). A troca de policy valeu para o container em execução, ao contrário do que se supunha de manhã. Se algum domínio voltar a dar 000/403: `curl -sS "$HTTPS_PROXY/__agentproxy/status"` lista as negativas recentes em `recentRelayFailures`.
 
 ## IDs e contas
 
 - Instagram do produto: **@eita.mentoravirtual** (confirmado pela equipe em 2026-08-17; não é mais hipótese da planilha). O perfil pessoal da Anaclaudia é @anaclaudia.eita: nunca confundir os dois.
-- Metricool: conta da agência suporte@mentoravirtual.com.br. **PENDENTE: conectar a marca da EITA no painel do Metricool.** Reconfirmado em 2026-08-17 via `getBrandSettings`: existe uma única marca, "anaclaudia.eita" (blog_id 6707687, userId 5161049, Instagram `anaclaudia.eita`, timezone America/Sao_Paulo). Enquanto a marca da EITA não existir, não há onde agendar o conteúdo do produto.
+- Metricool: conta da agência suporte@mentoravirtual.com.br. **Marca da EITA conectada em 2026-08-17: "eita.mentoravirtual", blog_id 6735014** (userId 5161049, timezone America/Sao_Paulo), com Instagram `eita.mentoravirtual`, Facebook, LinkedIn, Pinterest, TikTok e YouTube. Conteúdo do produto agenda-se SEMPRE nela; a marca "anaclaudia.eita" (blog_id 6707687) é o perfil pessoal. Existe ainda uma terceira marca na conta, "normalyze.ai" (6735045), de outro projeto: ignorar.
 - Kairogen: conta suporte@zavi.ag, plano Essential (`veo3-1-lite` para vídeo). Verificado em 2026-08-17: 286 créditos, crédito a R$ 0,175, renovação 2026-09-11, concorrência máxima 4 gerações (2 imagem + 2 vídeo). Para lote de vídeos, gerar em ondas de 2.
 - ElevenLabs: chave em `.env` na raiz do video-use (transcrição Scribe + SFX/trilha + TTS). Voz clonada da **Anaclaudia**: voice_id `XsU4z9JE7JPZzkVPg4GW` (`eleven_multilingual_v2`, stability 0.5, similarity 0.8). A voz da **personagem EITA** dos áudios do WhatsApp é outra: **PENDENTE mapear voice_id com a equipe**.
 - Drive (brutos): pasta do projeto **PENDENTE: criar/apontar** (padrão: pasta com "qualquer pessoa com o link: leitor" para download direto).
 
 ## Pendências que dependem da equipe (checar no início de cada sessão)
 
-Combinado em 2026-08-17. Enquanto estes três não fecharem, dá para roteirizar e escrever caption, mas não para editar nem agendar.
+Das três pendências de 2026-08-17 de manhã, duas fecharam no mesmo dia (marca eita.mentoravirtual no Metricool, blog_id 6735014; rede liberada no container). Resta uma que trava transcrição, trilha e SFX:
 
-1. **Marca da EITA no Metricool.** A equipe vai conectar @eita.mentoravirtual no painel. Ao voltar, rodar `getBrandSettings` e anotar aqui o `blog_id` novo. Em 2026-08-17 ainda só existia anaclaudia.eita (6707687). Não agendar conteúdo do produto na marca pessoal.
-2. **Environment com rede liberada.** A equipe vai passar a usar o environment "ana-conteudo" (network Custom). A troca só vale para sessões novas: o container atual mantém a política com que subiu. Confirmar com `curl -s -o /dev/null -w "%{http_code}" https://drive.google.com/` (esperado: HTTP, não 000).
-3. **`ELEVENLABS_API_KEY`.** Chave `sk_...` de 51 caracteres. Configurar como variável de ambiente do environment (não colar a chave no chat nem commitar); o `setup.sh` grava em `.env` do video-use quando ela existe.
+1. **`ELEVENLABS_API_KEY` ainda é o key ID, não a chave.** Em 2026-08-17 a equipe configurou a env var, mas com o valor errado pela segunda vez: 64 caracteres hex (prefixo `329...`), e a API respondeu `api_key_id_used_as_api_key`. A chave certa começa com `sk_` e tem 51 caracteres; ela só aparece na hora em que a key é criada ou rotacionada em elevenlabs.io/app/settings/api-keys. Se não foi copiada na hora, rotacionar e copiar o `sk_` novo. Ao corrigir: atualizar a env var do environment e gravar em `/workspace/browser-use/video-use/.env`.
 
 Ainda em aberto, sem bloquear o começo: `voice_id` da personagem EITA (a dos áudios do WhatsApp, diferente da voz clonada da Anaclaudia) e a pasta de brutos no Drive.
 
