@@ -21,7 +21,7 @@ Este repositório é o **EITA Conteúdo Studio**: edição e agendamento de cont
 - Instagram do produto: **confirmar handle com a equipe** (planilha de mídia usa "@eita.mentoravirtual").
 - Metricool: conta da agência suporte@mentoravirtual.com.br. **PENDENTE: conectar a marca da EITA no painel do Metricool** (hoje só existe "anaclaudia.eita", blog_id 6707687). Timezone America/Sao_Paulo.
 - Kairogen: conta suporte@zavi.ag, plano Essential (`veo3-1-lite` para vídeo).
-- ElevenLabs: chave em `.env` na raiz do video-use (transcrição Scribe + SFX/trilha + TTS; chave atual tem voices_read). Voz clonada da **Anaclaudia**: voice_id `XsU4z9JE7JPZzkVPg4GW` (`eleven_multilingual_v2`, stability 0.5, similarity 0.8). A voz da **personagem EITA** dos áudios do WhatsApp: **PENDENTE confirmar com a equipe qual é**. Não há voz chamada "EITA" na conta; candidatas femininas pt-BR: Ana Alice `ORgG8rwdAiMYRug8RJwR`, Raquel `GDzHdQOi6jjf8zaXhCYD`, Bia `Eyspt3SYhZzXd1Jd3J8O`, Katiuscia `wXwzHFLHnXex5h3JPBXA`, Slany `x8udhExu0uJxUn4Tf9Az`, Horseway `mPDAoQyGzxBSkE0OAOKw`, Lucinda `fs3nd19KF2GO2hLTzkBm`.
+- ElevenLabs: chave em `.env` na raiz do video-use (transcrição Scribe + SFX/trilha + TTS; chave atual tem voices_read). **A voz da EITA é a voz clonada da Anaclaudia** (confirmado pela equipe em ago/2026): voice_id `XsU4z9JE7JPZzkVPg4GW`, modelo `eleven_multilingual_v2`, stability 0.5, similarity 0.8. Amostra de referência aprovada: `ana-conteudo/assets/voz/amostra-voz-clonada.mp3`. Toda narração da EITA (pilar B) usa essa voz.
 - Drive (brutos): pasta do projeto **PENDENTE: criar/apontar** (padrão: pasta com "qualquer pessoa com o link: leitor" para download direto).
 
 ## Gotchas essenciais (herdados do ana-conteudo, todos validados)
