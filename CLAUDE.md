@@ -40,11 +40,14 @@ Toolchain instalado e validado num container limpo pelo `scripts/setup.sh` (leva
 
 ## Pendências que dependem da equipe (checar no início de cada sessão)
 
-Das três pendências de 2026-08-17 de manhã, duas fecharam no mesmo dia (marca eita.mentoravirtual no Metricool, blog_id 6735014; rede liberada no container). Resta uma que trava transcrição, trilha e SFX:
+As três pendências de 2026-08-17 de manhã fecharam no mesmo dia: marca eita.mentoravirtual no Metricool (blog_id 6735014), rede liberada no container, e chave `sk_` do ElevenLabs validada e gravada em `/workspace/browser-use/video-use/.env`. **O pipeline está 100% operacional.**
 
-1. **`ELEVENLABS_API_KEY` ainda é o key ID, não a chave.** Em 2026-08-17 a equipe configurou a env var, mas com o valor errado pela segunda vez: 64 caracteres hex (prefixo `329...`), e a API respondeu `api_key_id_used_as_api_key`. A chave certa começa com `sk_` e tem 51 caracteres; ela só aparece na hora em que a key é criada ou rotacionada em elevenlabs.io/app/settings/api-keys. Se não foi copiada na hora, rotacionar e copiar o `sk_` novo. Ao corrigir: atualizar a env var do environment e gravar em `/workspace/browser-use/video-use/.env`.
+Sobre a chave do ElevenLabs (validada em 2026-08-17 à tarde):
 
-Ainda em aberto, sem bloquear o começo: `voice_id` da personagem EITA (a dos áudios do WhatsApp, diferente da voz clonada da Anaclaudia) e a pasta de brutos no Drive.
+- É uma chave de **permissões restritas**: `user_read` e `models_read` negados (irrelevantes para o estúdio); voices, TTS, speech-to-text (Scribe) e sound-generation **testados e funcionando**. A voz clonada da Anaclaudia (`XsU4z9JE7JPZzkVPg4GW`) aparece na conta.
+- **Atenção em container novo:** a env var `ELEVENLABS_API_KEY` do environment ainda pode conter o key ID hex antigo (o valor visto pelo container congela no boot; nesta sessão a correção foi direto no `.env`). O `setup.sh` avisa quando a env var não começa com `sk_`; nesse caso, recuperar a chave com a equipe ou pedir para corrigirem a env var do environment.
+
+Ainda em aberto, sem bloquear nada: `voice_id` da personagem EITA (a dos áudios do WhatsApp, diferente da voz clonada da Anaclaudia) e a pasta de brutos no Drive.
 
 ## Gotchas essenciais (herdados do ana-conteudo, todos validados)
 
