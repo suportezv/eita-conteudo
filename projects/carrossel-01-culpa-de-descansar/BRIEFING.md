@@ -24,11 +24,9 @@ Primeiro teste de carrossel do perfil @eita.mentoravirtual, gerado via Claude De
 - `CLAUDE-DESIGN-PROMPT.md`: prompt pronto para colar no Claude Design
 - `CAPTION.md`: caption do post para o agendamento
 
-## Checklist antes de agendar
+## Status: PUBLICADO
 
-- [ ] Nenhum travessão na caption, no lettering e nos slides
-- [ ] Credencial completa: "Neurocientista criadora do método EITA"
-- [ ] Nenhuma promessa de tratamento ou substituição de terapia (o slide 8 acolhe isso)
-- [ ] Exportar os 9 slides em 1080x1350 PNG ou JPG
-- [ ] Preview aprovado na conversa
-- [ ] Agendado como rascunho na marca eita.mentoravirtual (6735014)
+- **Post Metricool id 363112163**, marca eita.mentoravirtual (6735014), Instagram, autopublicação em **2026-08-17 12:15 América/São Paulo**. Planner: https://app.metricool.com/planner/calendar?blogId=6735014&openWithPostUuid=-7362810057312026122
+- Slides renderizados localmente a partir do export do Claude Design (runtime removido, fontes via @fontsource, Chromium headless); 9 PNGs 1080x1350 verificados visualmente.
+- Checklist cumprido: zero travessões (grep no HTML), credencial completa, guarda-corpos (CVV 188), tempo de leitura 10 min do badge do blog, sem numeração de slides.
+- Mídia temporária removida do repo após o Metricool copiar para o CDN dele.
