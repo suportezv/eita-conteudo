@@ -20,6 +20,7 @@ Este repositório é o **EITA Conteúdo Studio**: edição e agendamento de cont
 
 - Instagram do produto: **@eita.mentoravirtual** (confirmado; a marca também tem Facebook, LinkedIn, Pinterest, TikTok e YouTube conectados).
 - Metricool: conta da agência suporte@mentoravirtual.com.br, marca "eita.mentoravirtual", **blog_id 6735014**, timezone America/Sao_Paulo. Melhor horário de publicação: medir com a marca nova (getBestTimeToPostByNetwork).
+- **Regra de agendamento (todas as marcas da agência)**: sempre incluir TODOS os canais conectados da marca no post, exceto YouTube horizontal. YouTube entra como **Short** (`youtubeData: {type: "short", title, madeForKids: false}`); Instagram como REEL; Facebook como REEL; TikTok, LinkedIn e Pinterest com networkData padrão. Nunca publicar vídeo vertical como YouTube horizontal comum.
 - Kairogen: conta suporte@zavi.ag, plano Essential (`veo3-1-lite` para vídeo).
 - ElevenLabs: chave em `.env` na raiz do video-use (transcrição Scribe + SFX/trilha + TTS; chave atual tem voices_read). **A voz da EITA é a voz clonada da Anaclaudia** (confirmado pela equipe em ago/2026): voice_id `XsU4z9JE7JPZzkVPg4GW`, modelo `eleven_multilingual_v2`, stability 0.5, similarity 0.8. Amostra de referência aprovada: `ana-conteudo/assets/voz/amostra-voz-clonada.mp3`. Toda narração da EITA (pilar B) usa essa voz.
 - Drive (brutos): pasta do projeto **PENDENTE: criar/apontar** (padrão: pasta com "qualquer pessoa com o link: leitor" para download direto).
