@@ -63,7 +63,7 @@ Sistema visual fixo definido no carrossel-01 (detalhes em `projects/carrossel-01
 7. Trilha + SFX (sound-generation; batidas detectadas por script)
 8. Preview 720p+ para aprovação na conversa
 9. Caption
-10. Agendamento no Metricool como rascunho (marca da EITA; melhor horário: medir após conectar a marca)
+10. Agendamento no Metricool (marca da EITA, blog_id 6735014; melhor horário via `getBestTimeToPostByNetwork`). **Todos os canais conectados, exceto YouTube horizontal** (YouTube entra só para vídeo vertical/Shorts); redes que não aceitam o formato ficam de fora naturalmente.
 
 ## Gotchas técnicos
 
