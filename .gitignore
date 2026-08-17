@@ -9,3 +9,12 @@ projects/**/*.wav
 projects/**/*.m4a
 projects/**/*.MOV
 projects/**/*.png
+
+# Export do Claude Design: versionamos só o .dc.html (fonte do design);
+# runtime, thumbnails e assets binários ficam fora
+projects/**/render-*/support.js
+projects/**/render-*/.thumbnail
+projects/**/render-*/assets/
+projects/**/render-*/uploads/
+projects/**/*.jpeg
+projects/**/*.jpg
