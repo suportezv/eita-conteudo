@@ -32,11 +32,21 @@ Toolchain instalado e validado num container limpo pelo `scripts/setup.sh` (leva
 
 ## IDs e contas
 
-- Instagram do produto: **confirmar handle com a equipe** (planilha de mídia usa "@eita.mentoravirtual").
+- Instagram do produto: **@eita.mentoravirtual** (confirmado pela equipe em 2026-08-17; não é mais hipótese da planilha). O perfil pessoal da Anaclaudia é @anaclaudia.eita: nunca confundir os dois.
 - Metricool: conta da agência suporte@mentoravirtual.com.br. **PENDENTE: conectar a marca da EITA no painel do Metricool.** Reconfirmado em 2026-08-17 via `getBrandSettings`: existe uma única marca, "anaclaudia.eita" (blog_id 6707687, userId 5161049, Instagram `anaclaudia.eita`, timezone America/Sao_Paulo). Enquanto a marca da EITA não existir, não há onde agendar o conteúdo do produto.
 - Kairogen: conta suporte@zavi.ag, plano Essential (`veo3-1-lite` para vídeo). Verificado em 2026-08-17: 286 créditos, crédito a R$ 0,175, renovação 2026-09-11, concorrência máxima 4 gerações (2 imagem + 2 vídeo). Para lote de vídeos, gerar em ondas de 2.
 - ElevenLabs: chave em `.env` na raiz do video-use (transcrição Scribe + SFX/trilha + TTS). Voz clonada da **Anaclaudia**: voice_id `XsU4z9JE7JPZzkVPg4GW` (`eleven_multilingual_v2`, stability 0.5, similarity 0.8). A voz da **personagem EITA** dos áudios do WhatsApp é outra: **PENDENTE mapear voice_id com a equipe**.
 - Drive (brutos): pasta do projeto **PENDENTE: criar/apontar** (padrão: pasta com "qualquer pessoa com o link: leitor" para download direto).
+
+## Pendências que dependem da equipe (checar no início de cada sessão)
+
+Combinado em 2026-08-17. Enquanto estes três não fecharem, dá para roteirizar e escrever caption, mas não para editar nem agendar.
+
+1. **Marca da EITA no Metricool.** A equipe vai conectar @eita.mentoravirtual no painel. Ao voltar, rodar `getBrandSettings` e anotar aqui o `blog_id` novo. Em 2026-08-17 ainda só existia anaclaudia.eita (6707687). Não agendar conteúdo do produto na marca pessoal.
+2. **Environment com rede liberada.** A equipe vai passar a usar o environment "ana-conteudo" (network Custom). A troca só vale para sessões novas: o container atual mantém a política com que subiu. Confirmar com `curl -s -o /dev/null -w "%{http_code}" https://drive.google.com/` (esperado: HTTP, não 000).
+3. **`ELEVENLABS_API_KEY`.** Chave `sk_...` de 51 caracteres. Configurar como variável de ambiente do environment (não colar a chave no chat nem commitar); o `setup.sh` grava em `.env` do video-use quando ela existe.
+
+Ainda em aberto, sem bloquear o começo: `voice_id` da personagem EITA (a dos áudios do WhatsApp, diferente da voz clonada da Anaclaudia) e a pasta de brutos no Drive.
 
 ## Gotchas essenciais (herdados do ana-conteudo, todos validados)
 
