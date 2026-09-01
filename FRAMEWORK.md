@@ -47,10 +47,13 @@ Sistema visual fixo definido no carrossel-01 (detalhes em `projects/carrossel-01
 
 ## Fórmula da caption (produto)
 
-1. Hook em 1 linha (dor ou cena concreta, sem travessão)
-2. 2 a 3 parágrafos curtos (o que aconteceu na demo / a técnica / o porquê neurocientífico)
-3. CTA: "Conversa com a EITA. Link na bio."
-4. Pergunta de engajamento
+Padrão real dos reels publicados no @eita.mentoravirtual (confirmado via Metricool em 2026-09-01):
+
+1. 2 parágrafos curtos sobre o tema. **REGRA DA EQUIPE: a caption NUNCA repete o texto falado no vídeo ou escrito no carrossel**; ela aborda o mesmo tema por outro ângulo (cena nova, insight complementar).
+2. "A EITA te ajuda a [benefício específico do tema]. Ela é uma mentora e companheira emocional no seu WhatsApp."
+3. Disclaimer fixo: "A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia."
+4. "👉 Link na bio ou mentoravirtual.com.br" + "A partir de R$19,90/mês *no plano anual." (linha de preço sai em posts de conscientização, ex.: Setembro Amarelo, que levam o CVV 188 no lugar)
+5. Sem hashtags, sem travessão, sem pergunta de engajamento.
 
 ## Fluxo por vídeo
 

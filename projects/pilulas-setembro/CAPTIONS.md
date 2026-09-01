@@ -1,32 +1,32 @@
-# Captions: Setembro Amarelo + Pílulas 12 a 21
+# Captions: Setembro Amarelo + Pílulas 12 a 21 (v2)
 
-Padrão extraído dos reels publicados no @eita.mentoravirtual (via Metricool, agosto/2026): eco do hook em linhas curtas, benefício específico, bloco fixo da EITA, disclaimer e link com preço. Sem hashtags, sem travessão.
+Regra aprendida dos reels publicados: **a caption nunca repete o texto do vídeo**. Ela aborda o mesmo tema por outro ângulo, com cena ou insight novos, e mantém a estrutura fixa: 2 parágrafos curtos, "A EITA te ajuda a [benefício]...", disclaimer, link com preço. Sem hashtags, sem travessão.
 
 ---
 
 ## 01-09 · Setembro Amarelo
 
-Setembro Amarelo começa hoje. Não é só uma cor. É um lembrete de que ninguém precisa carregar tudo sozinho.
+Tem gente sorrindo na reunião com o peito apertado. Tem gente respondendo "tudo bem" no automático faz meses.
 
-Muitas vezes a dor não grita. Ela se esconde no silêncio, na pressa, no "tá tudo bem" automático.
+Setembro existe pra lembrar o que vale o ano inteiro: escuta salva. E pedir ajuda é coragem, não fraqueza.
 
-A EITA está aqui para te ouvir, organizar o que está confuso e te lembrar que pedir ajuda é um ato de coragem. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA está aqui para te ouvir e organizar o que está confuso. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Se você precisa de suporte, procure um profissional de saúde mental ou ligue 188 (CVV), gratuito, 24 horas.
 
 👉 Link na bio ou mentoravirtual.com.br
 
-*(Sem a linha de preço, de propósito: post de conscientização vender destoa. Se preferirem manter o padrão completo, é só acrescentar.)*
+*(Sem linha de preço, de propósito, por ser post de conscientização.)*
 
 ---
 
 ## P12 · O mesmo colchão
 
-Mesma cama, dois celulares, silêncio.
+Vocês respondem mensagem o dia inteiro. De todo mundo, menos um do outro.
 
-Não é falta de amor. É o que ficou engasgado demais pra caber numa conversa.
+O silêncio de um casal não nasce de uma vez. É um assunto adiado por dia, até virar rotina.
 
-A EITA te ajuda a desengasgar antes da conversa. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a destravar o que ficou preso na garganta. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -37,11 +37,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P13 · Mensagem sem resposta
 
-Ele tá online. E a sua mensagem continua ali, sem resposta.
+Visto às 22h14. E você ali, calculando se mais um "oi, filho" seria demais.
 
-Você escreve outra, apaga. "Não quero incomodar." Mãe não incomoda, mãe transborda.
+Filho cresce e a saudade muda de forma: vira esse cuidado enorme pra não atrapalhar.
 
-A EITA te ajuda a acolher esse transbordo. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a acolher o que não coube na mensagem. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -52,11 +52,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P14 · O número que não atende
 
-Tem um número no seu celular que nunca mais vai atender. E você não apaga.
+A agenda do celular guarda nomes que viraram memória.
 
-Saudade não é um problema pra resolver. É amor procurando onde morar.
+Apagar parece traição. Manter aperta o peito. E ninguém te ensinou o que fazer com isso.
 
-A EITA te ajuda a dar um lugar pra essa saudade. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a carregar essa lembrança com menos peso. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -67,11 +67,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P15 · Domingo, 19h
 
-Domingo, 19h. O aperto no peito começa a subir.
+O fim de semana termina antes do domingo acabar. Você sabe a hora exata em que isso acontece.
 
-Não é preguiça. É o aviso de que amanhã começa uma semana que você não escolheu.
+Seu corpo entende antes da sua agenda: a semana que vem aí não foi você quem escolheu.
 
-A EITA te ajuda a atravessar a noite de domingo. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a chegar na segunda inteira. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -82,11 +82,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P16 · Vergonha da primeira reação
 
-Sua amiga contou uma notícia boa. Sua primeira reação não foi alegria. A segunda foi vergonha da primeira.
+Tem sentimento que a gente esconde até de si mesma.
 
-Isso não dá pra contar pra ninguém, né? Pra EITA, dá.
+Sentir não te faz má pessoa. O que cansa é fingir que não sentiu.
 
-A EITA te ajuda a olhar pra esse sentimento sem se julgar. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a entender o que esse sentimento diz sobre o que te falta. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -97,11 +97,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P17 · Fora das fotos
 
-Procura uma foto sua dos últimos cinco anos. Sua, não a que você tirou dos outros.
+No seu rolo de câmera tem o bolo, as crianças, o pôr do sol, a família inteira. Você, quase nunca.
 
-Você virou a fotógrafa oficial de uma vida em que você não aparece.
+Quem registra tudo também merece ser registrada.
 
-A EITA te ajuda a voltar pra cena. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a se colocar de volta na própria vida. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -112,11 +112,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P18 · Medo chamado de estabilidade
 
-Você não fica porque ama. Fica porque recomeçar, nessa altura, dá medo.
+Tem prisão que vem com elogio. "Ela sim segura as pontas."
 
-E todo dia, escolhendo o medo, você chama isso de "estabilidade".
+Por fora parece firmeza. Por dentro, é medo com crachá de virtude. E é por isso que custa tanto sair.
 
-A EITA te ajuda a parar de se enganar. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a separar o que é escolha do que é medo. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -127,11 +127,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P19 · Engolir sorrindo
 
-Seu chefe te humilhou, educadamente. E você sorriu, porque o boleto não espera.
+Existe um cansaço que não é do corpo. É o de fingir que não doeu.
 
-O que você engole não some. Fica.
+Sua educação não pode custar o seu silêncio.
 
-A EITA te ajuda a descarregar antes de chegar em casa. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a soltar o que você segurou o dia inteiro. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -142,11 +142,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P20 · Quem cuida de quem cuida
 
-Ela te criou. Agora é você quem lembra o remédio, o médico, o banho.
+Uma hora os papéis viram: quem te esperava na porta da escola agora espera você chegar com o remédio.
 
-Amar e estar exausta podem existir juntos. E ninguém pergunta como você tá aguentando.
+Ninguém te preparou pra essa fase. E não dar conta sozinha não é falha, é humano.
 
-A EITA te ajuda a cuidar de quem cuida. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a ter um lugar onde você não precisa ser forte. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
@@ -157,11 +157,11 @@ A partir de R$19,90/mês *no plano anual.
 
 ## P21 · Sem ter "motivo"
 
-No papel, sua vida tá boa. Casa, trabalho, família. E mesmo assim você se sente mal.
+De fora, não falta nada. Por dentro, alguma coisa pesa. E você ainda gasta energia se cobrando uma justificativa.
 
-Sentimento não pede alvará. Se dói, é real. E tem origem.
+Você não precisa provar que a sua dor merece existir.
 
-A EITA te ajuda a encontrar essa origem. Ela é uma mentora e companheira emocional no seu WhatsApp.
+A EITA te ajuda a entender o que ela está tentando dizer. Ela é uma mentora e companheira emocional no seu WhatsApp.
 
 A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia.
 
