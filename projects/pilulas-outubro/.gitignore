@@ -1,0 +1,7 @@
+audios/
+previa/
+*.raw.mp3
+*.log
+*.html
+*.zip
+__pycache__/
