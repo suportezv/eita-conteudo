@@ -105,7 +105,7 @@ h1{font-family:"League Spartan",system-ui,sans-serif;font-weight:800;font-size:c
 </style>
 """
 
-JS = """<script>
+JS = """
 document.querySelectorAll(".bloco").forEach(bl => {
   const audio = new Audio("data:audio/mpeg;base64," + AUDIOS[bl.dataset.id]);
   const btn = bl.querySelector(".btn"), p = bl.querySelector(".ic-play"), q = bl.querySelector(".ic-pause");
@@ -126,7 +126,6 @@ document.querySelectorAll(".bloco").forEach(bl => {
   });
   bl._a = audio;
 });
-</script>
 """
 
 
@@ -182,8 +181,8 @@ def main():
 </div>
 <script>
 const AUDIOS = {{{','.join(dados)}}};
-</script>
-{JS.replace('<script>', '').replace('</script>', '')}"""
+{JS}
+</script>"""
 
     destino = os.path.join(RAIZ, "bancada-pilulas-outubro.html")
     with open(destino, "w") as f:
