@@ -1,9 +1,10 @@
-audios/
-previa/
-*.raw.mp3
-*.log
 *.html
+*.log
+*.raw.mp3
 *.zip
 __pycache__/
 audios-v1/
+audios/
+opcoes/
+previa/
 refeitos.txt
