@@ -2,6 +2,7 @@
 *.log
 *.raw.mp3
 *.zip
+PILULAS-OUTUBRO/*/
 __pycache__/
 audios-v1/
 audios/
