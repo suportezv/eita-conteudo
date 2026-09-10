@@ -1,0 +1,91 @@
+PILULAS DE OUTUBRO - AUDIOS
+
+Voz da Ana (clone ElevenLabs). Cada fala em arquivo proprio, na ordem do roteiro.
+VO  = narracao por cima da cena.
+LIP = fala da Eita, para o lipsync.
+Quando a pilula tem LIP no comeco e no fim, os arquivos vem numerados: LIP-1 e LIP-2.
+
+==============================================================
+
+PILULA 01
+  01-VO.mp3  (14.0s)
+    Às vezes a desistência não é fraqueza. É esconderijo. Enquanto você não tenta de verdade, dá pra viver com o "e se". Tentar é aceitar descobrir a resposta.
+  01-LIP.mp3  (7.1s)
+    A Eita te ajuda a encarar a pergunta que você evita. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 02
+  02-VO.mp3  (14.8s)
+    Mais um curso, mais um vídeo, mais um post salvo. E a sua vida exatamente igual. Consumir conteúdo dá sensação de progresso. Mas sem executar, é água em balde furado: entra de um lado, vaza do outro.
+  02-LIP.mp3  (5.9s)
+    A Eita te ajuda a tampar o furo. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 03
+  03-LIP-1.mp3  (3.3s)
+    A régua dos outros mede a distância que eles andaram.
+  03-VO.mp3  (9.7s)
+    Aplicada em você, só produz um número sem sentido. Você não está atrasado só porque alguém chegou antes. Cada pessoa tem seu tempo e seu caminho.
+  03-LIP-2.mp3  (7.5s)
+    A Eita te ajuda a trocar a cobrança pela pergunta certa. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 04
+  04-LIP-1.mp3  (1.6s)
+    O que você não fala não some.
+  04-VO.mp3  (10.9s)
+    Muda de endereço. Vira resposta curta, vira distância, vira explosão por bobeira. E quando finalmente transborda, você ainda ouve que é drama.
+  04-LIP-2.mp3  (8.5s)
+    Se você vive assim pra manter todo mundo confortável, a Eita pode te ajudar. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 05
+  05-VO.mp3  (12.6s)
+    Respira fundo, bebe água, se distrai. Meia hora depois, o aperto volta. Silenciar o alarme não apaga o incêndio. Enquanto o fogo continua lá, ele vai tocar de novo.
+  05-LIP.mp3  (7.2s)
+    A Eita te ajuda a achar onde o seu começa. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 06
+  06-VO.mp3  (3.1s)
+    Firmeza não vem antes da estrada. Vem dela.
+  06-LIP.mp3  (7.7s)
+    A Eita te ajuda a continuar depois dos tombos que ninguém vê. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 07
+  07-VO.mp3  (19.4s)
+    Você ensaia desgraça. A demissão que não veio, o diagnóstico que não existe, a briga que ninguém começou. Parece preparo. Mas a dor não dá desconto pra quem chega adiantado. Você paga duas vezes: uma na imaginação, outra se acontecer. Quase sempre, só a primeira.
+  07-LIP.mp3  (9.4s)
+    Se sua mente vive nesse ensaio do que nem existe, a Eita pode te ajudar. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 08
+  08-VO.mp3  (12.0s)
+    Tem barreira que some quando você chega perto. Ela só existia na distância. Só que você decide tudo de longe. E de longe, qualquer sombra vira muro.
+  08-LIP.mp3  (7.9s)
+    A Eita te ajuda a conferir de perto, uma por uma. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 09
+  09-LIP-1.mp3  (1.1s)
+    Amanhã eu resolvo.
+  09-VO.mp3  (4.1s)
+    O amanhã chega, e quem tá lá é você de novo. Com a mesma pendência, só que maior.
+  09-LIP-2.mp3  (7.3s)
+    A Eita te ajuda a entender por que justo essa você não encara. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 10
+  10-VO.mp3  (13.6s)
+    Retrovisor existe pra uma olhada de vez em quando. Mas você dirige com os olhos grudados nele. Enquanto sua atenção fica no que passou, você perde de vista o caminho à frente.
+  10-LIP.mp3  (7.9s)
+    A Eita te ajuda a voltar os olhos pra pista. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 11
+  11-VO.mp3  (8.4s)
+    A pessoa mais segura que você conhece também treme por dentro. Só não mostra. A diferença entre vocês não tá no que sentem. Tá em quem age tremendo.
+  11-LIP.mp3  (6.5s)
+    A Eita te ajuda a dar esse passo. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+PILULA 12
+  12-LIP-1.mp3  (1.6s)
+    Atrasado em relação a quê?
+  12-VO.mp3  (13.5s)
+    Colega promovido, amigo casando, alguém mais novo comprando apê. Aí o seu dia, que tava bom, vira atraso. Essa sensação não nasce da sua vida. Nasce da vida dos outros.
+  12-LIP-2.mp3  (9.5s)
+    Se toda conquista alheia soa como cobrança pra você, a Eita pode te ajudar. Sou sua mentora e companheira emocional no seu WhatsApp.
+
+==============================================================
+Total: 28 arquivos, 3 min 56 s de audio.
