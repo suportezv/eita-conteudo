@@ -5,3 +5,5 @@ previa/
 *.html
 *.zip
 __pycache__/
+audios-v1/
+refeitos.txt

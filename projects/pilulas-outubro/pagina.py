@@ -26,6 +26,12 @@ TEMAS = {
 }
 
 
+REFEITOS = set()
+_r = os.path.join(RAIZ, "refeitos.txt")
+if os.path.exists(_r):
+    REFEITOS = {l.strip() for l in open(_r) if l.strip()}
+
+
 def previa(nome):
     """Versao leve do mp3 para caber na pagina."""
     os.makedirs(PREVIA, exist_ok=True)
@@ -97,6 +103,7 @@ h1{font-family:"League Spartan",system-ui,sans-serif;font-weight:800;font-size:c
 .top{display:flex;align-items:center;gap:9px;margin-bottom:7px}
 .tipo{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.1em;padding:3px 9px;border-radius:5px}
 .arq{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--mudo)}
+.novo{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;padding:2px 8px;border-radius:5px;background:var(--verde);color:#17202A}
 .bar{height:6px;border-radius:999px;background:var(--verde-suave);cursor:pointer}
 .fill{height:100%;width:0%;border-radius:999px;background:var(--verde-prof);pointer-events:none}
 .fala{font-size:15.5px;line-height:1.55;color:var(--apoio);margin:9px 0 0}
@@ -155,7 +162,10 @@ def main():
                 f'<svg class="ic-pause" viewBox="0 0 24 24" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>'
                 f'</button><div class="col"><div class="top">'
                 f'<span class="tipo tipo-{tipo}">{rot}</span>'
-                f'<span class="arq">{nome} · {dur(nome)}</span></div>'
+                f'<span class="arq">{nome} · {dur(nome)}</span>'
+                f'{chr(10) if False else ""}'
+                + ('<span class="novo">REFEITO</span>' if f"{pid}-{rot}" in REFEITOS else '')
+                + '</div>'
                 f'<div class="bar"><div class="fill"></div></div>'
                 f'<p class="fala">{html.escape(texto)}</p></div></div>')
         corpo.append("</div></div>")
