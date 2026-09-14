@@ -49,7 +49,9 @@ Sistema visual fixo definido no carrossel-01 (detalhes em `projects/carrossel-01
 
 Padrão real dos reels publicados no @eita.mentoravirtual (confirmado via Metricool em 2026-09-01):
 
-1. 2 parágrafos curtos sobre o tema. **REGRA DA EQUIPE: a caption NUNCA repete o texto falado no vídeo ou escrito no carrossel**; ela aborda o mesmo tema por outro ângulo (cena nova, insight complementar).
+1. 2 parágrafos curtos sobre o tema. **REGRA DA EQUIPE: a caption NUNCA repete o texto falado no vídeo ou escrito no carrossel**; ela aborda o mesmo tema por outro ângulo (cena nova, insight complementar). **A caption complementa a peça, não legenda a peça.**
+   - **Vale para a oferta também (regra reforçada em 2026-09-14):** em post promocional a oferta DEVE ser ressaltada, mas com construção própria. Reescrever a mesma frase do vídeo com sinônimos ainda é copiar. Errado: o vídeo diz "plano anual com cinquenta por cento de desconto" e "depois de setembro o valor volta ao normal", e a caption sai "Plano anual pela metade do preço, só até o fim de setembro". Certo: mudar o enquadramento e o ritmo da frase, por exemplo "Neste mês o ano inteiro sai pela metade do valor. Quando setembro fechar, o desconto fecha junto."
+   - Método: transcrever o áudio da peça (Scribe) ANTES de escrever, listar as frases e os termos que ela já usa, e escolher um ângulo que ela não cobre.
 2. "A EITA te ajuda a [benefício específico do tema]. Ela é uma mentora e companheira emocional no seu WhatsApp."
 3. Disclaimer fixo: "A EITA não é terapia e não substitui acompanhamento profissional. Ela é o apoio do dia a dia."
 4. "👉 Link na bio ou mentoravirtual.com.br" + "A partir de R$19,90/mês *no plano anual." (linha de preço sai em posts de conscientização, ex.: Setembro Amarelo, que levam o CVV 188 no lugar)
