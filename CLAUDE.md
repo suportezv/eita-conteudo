@@ -40,6 +40,8 @@ Network **Custom**. Hosts que este cinto de ferramentas exige:
 | `registry.npmjs.org` | Remotion e `npx` |
 | `api.github.com` + GitHub Releases | ffmpeg estático e clones |
 
+Estado medido em 18/set/2026 com `scripts/validate.sh`: os oito hosts acima respondem. `api.openai.com` foi liberado nesta data (antes devolvia `403` no CONNECT do proxy).
+
 `raw.githubusercontent.com` **não** precisa ser liberado: o `setup.sh` registra as skills do hyperframes a partir do clone local quando o `npx ... skills update` falha.
 
 **Gotcha central**: `pypi.org`, `files.pythonhosted.org` e `registry.npmjs.org` vêm na variável `no_proxy` do container. Por isso contornam o agent proxy e batem direto no firewall de egresso, que responde **403 "Host not in allowlist"** mesmo estando na allowlist. Roteando pelo agent proxy respondem 200. O contorno está embutido no `scripts/setup.sh`.
@@ -53,6 +55,8 @@ Diagnóstico de qualquer host em um comando: `curl -sv https://host/ 2>&1 | grep
 | `ELEVENLABS_API_KEY` | TTS, Scribe e `sound-generation` | chamar o endpoint com parâmetro inválido: `401 missing_permissions` = escopo ausente; `400`/`404` = escopo presente |
 | `OPENAI_API_KEY` | `scripts/gera_imagem.py` | `curl https://api.openai.com/v1/models -H "Authorization: Bearer $OPENAI_API_KEY"` |
 | `GEMINI_API_KEY` | `scripts/gera_imagem.py` | `curl https://generativelanguage.googleapis.com/v1beta/models -H "x-goog-api-key: $GEMINI_API_KEY"` |
+
+**Estado em 18/set/2026**: só `ELEVENLABS_API_KEY` está cadastrada (51 chars, `sk_`). `OPENAI_API_KEY` e `GEMINI_API_KEY` **não existem no environment**, então `scripts/gera_imagem.py` ainda não gera imagem por nenhum dos dois. A rede já passa para os dois; falta a chave. Lembrar da armadilha 1: depois de cadastrar, é preciso **sessão nova**.
 
 Três armadilhas já pagas com tempo nos estúdios irmãos:
 
