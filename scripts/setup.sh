@@ -20,7 +20,7 @@ if [ -n "${HTTPS_PROXY:-}" ]; then
   export npm_config_noproxy="" npm_config_cafile="$SSL_CERT_FILE"
 fi
 
-echo "== 1/5 ffmpeg =="
+echo "== 1/6 ffmpeg =="
 # No cloud com network Custom o apt fica bloqueado (403 no archive.ubuntu.com), então
 # o caminho confiável é o build estático do BtbN via GitHub Releases, que o proxy libera.
 # O build "gpl" traz libass (subtitles) e zimg (zscale), ambos obrigatórios aqui.
@@ -64,7 +64,7 @@ if ! command -v ffmpeg >/dev/null; then
 fi
 ffmpeg -version 2>/dev/null | head -1 || true
 
-echo "== 2/5 video-use =="
+echo "== 2/6 video-use =="
 if [ ! -d "$VIDEO_USE/.git" ]; then
   GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/browser-use/video-use "$VIDEO_USE" || { echo "AVISO: clone do video-use falhou"; }
 fi
@@ -84,7 +84,7 @@ fi
 mkdir -p ~/.claude/skills
 ln -sfn "$VIDEO_USE" ~/.claude/skills/video-use
 
-echo "== 3/5 hyperframes + media-use =="
+echo "== 3/6 hyperframes + media-use =="
 if [ ! -d "$HYPERFRAMES/.git" ]; then
   GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/heygen-com/hyperframes "$HYPERFRAMES" || { echo "AVISO: clone do hyperframes falhou"; }
 fi
@@ -105,11 +105,25 @@ if ! npx --yes hyperframes skills update 2>/dev/null; then
   echo "$n skills do hyperframes registradas a partir de $HYPERFRAMES/skills"
 fi
 
-echo "== 4/5 Python (PIL para overlays, numpy para batidas) =="
+echo "== 4/6 Remotion =="
+# O Remotion e React; as composicoes ficam versionadas em remotion/ e so as
+# dependencias sao instaladas aqui. O render usa o headless_shell do Playwright
+# (ver remotion/remotion.config.ts).
+if [ -f "$REPO_ROOT/remotion/package.json" ]; then
+  if ! (cd "$REPO_ROOT/remotion" && npm install --no-audit --no-fund >/dev/null 2>&1); then
+    echo "AVISO: npm install do Remotion falhou (registry.npmjs.org pelo proxy?)"
+  else
+    echo "Remotion instalado ($(cd "$REPO_ROOT/remotion" && node -p "require('./package.json').dependencies.remotion"))"
+  fi
+else
+  echo "remotion/package.json ausente; passo pulado"
+fi
+
+echo "== 5/6 Python (PIL para overlays, numpy para batidas) =="
 python3 -c 'import PIL' 2>/dev/null || pip3 install pillow || echo "AVISO: pillow não instalado (pypi bloqueado). Lettering/overlays indisponíveis."
 python3 -c 'import numpy' 2>/dev/null || pip3 install numpy || echo "AVISO: numpy não instalado (pypi bloqueado). Detecção de batidas indisponível."
 
-echo "== 5/5 estúdio =="
+echo "== 6/6 estúdio =="
 ln -sfn "$REPO_ROOT" ~/eita-conteudo
 echo "~/eita-conteudo -> $REPO_ROOT"
 

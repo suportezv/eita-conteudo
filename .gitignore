@@ -9,3 +9,11 @@ projects/**/*.wav
 projects/**/*.m4a
 projects/**/*.MOV
 projects/**/*.png
+
+# Remotion
+remotion/node_modules/
+remotion/out/
+
+# Mídia gerada
+projects/**/*.mp3
+projects/**/*.aac
