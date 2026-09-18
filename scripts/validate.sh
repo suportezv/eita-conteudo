@@ -4,6 +4,8 @@
 set -uo pipefail
 
 TOOLS_DIR="${TOOLS_DIR:-/workspace}"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REMOTION="$TOOLS_DIR/remotion-studio"
 VIDEO_USE="$TOOLS_DIR/browser-use/video-use"
 [ -d "$VIDEO_USE" ] || VIDEO_USE="$HOME/video-editor/video-use"
 FF_PATH="/opt/homebrew/opt/ffmpeg-full/bin"
@@ -36,7 +38,25 @@ echo "== 4. Skills registradas =="
 [ -e ~/.claude/skills/video-use/SKILL.md ] && echo "OK video-use" || echo "PENDENTE video-use"
 ls ~/.claude/skills 2>/dev/null | grep -q hyperframes && echo "OK hyperframes" || echo "verifique skills do hyperframes (npx hyperframes skills update)"
 
-echo "== 5. Na sessão do Claude, validar ainda: =="
+echo "== 5. Motores de render =="
+# O que importa nao e o binario existir, e o render achar um Chrome. Os dois
+# motores dependem do mesmo, baixado por `npx hyperframes browser ensure`.
+if ls /root/.cache/hyperframes/chrome/chrome-headless-shell/*/chrome-headless-shell-linux64/chrome-headless-shell >/dev/null 2>&1 \
+   || ls /opt/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell >/dev/null 2>&1; then
+  echo "OK chrome headless"
+else
+  echo "PENDENTE: chrome headless ausente (npx hyperframes browser ensure)"
+fi
+[ -f "$REPO_ROOT/assets/vendor/gsap.min.js" ] \
+  && echo "OK gsap em cache (cdn.jsdelivr.net e bloqueado; use scripts/vendor-gsap.sh)" \
+  || echo "PENDENTE: gsap nao cacheado (bash scripts/vendor-gsap.sh)"
+if [ -d "$REMOTION/node_modules/remotion" ]; then
+  echo "OK remotion $(node -p "require('$REMOTION/node_modules/remotion/package.json').version" 2>/dev/null)"
+else
+  echo "PENDENTE: remotion nao instalado em $REMOTION (rode scripts/setup.sh)"
+fi
+
+echo "== 6. Na sessão do Claude, validar ainda: =="
 echo " - Rede: curl a drive.google.com deve responder HTTP (environment com domínios liberados)"
 echo " - Metricool: getBrandSettings deve listar a marca da EITA com Instagram conectado (PENDENTE conectar)"
 echo " - Kairogen: get_me_context mostra plano Essential+ e créditos"

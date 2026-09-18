@@ -6,6 +6,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TOOLS_DIR="${TOOLS_DIR:-/workspace}"
 VIDEO_USE="$TOOLS_DIR/browser-use/video-use"
 HYPERFRAMES="$TOOLS_DIR/heygen-com/hyperframes"
+REMOTION="$TOOLS_DIR/remotion-studio"
 
 # --- Rota de rede (cloud) ---------------------------------------------------
 # pypi.org, files.pythonhosted.org e registry.npmjs.org vem em no_proxy, entao
@@ -20,7 +21,7 @@ if [ -n "${HTTPS_PROXY:-}" ]; then
   export npm_config_noproxy="" npm_config_cafile="$SSL_CERT_FILE"
 fi
 
-echo "== 1/5 ffmpeg =="
+echo "== 1/7 ffmpeg =="
 # No cloud com network Custom o apt fica bloqueado (403 no archive.ubuntu.com), então
 # o caminho confiável é o build estático do BtbN via GitHub Releases, que o proxy libera.
 # O build "gpl" traz libass (subtitles) e zimg (zscale), ambos obrigatórios aqui.
@@ -64,7 +65,7 @@ if ! command -v ffmpeg >/dev/null; then
 fi
 ffmpeg -version 2>/dev/null | head -1 || true
 
-echo "== 2/5 video-use =="
+echo "== 2/7 video-use =="
 if [ ! -d "$VIDEO_USE/.git" ]; then
   GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/browser-use/video-use "$VIDEO_USE" || { echo "AVISO: clone do video-use falhou"; }
 fi
@@ -84,7 +85,7 @@ fi
 mkdir -p ~/.claude/skills
 ln -sfn "$VIDEO_USE" ~/.claude/skills/video-use
 
-echo "== 3/5 hyperframes + media-use =="
+echo "== 3/7 hyperframes + media-use =="
 if [ ! -d "$HYPERFRAMES/.git" ]; then
   GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/heygen-com/hyperframes "$HYPERFRAMES" || { echo "AVISO: clone do hyperframes falhou"; }
 fi
@@ -105,11 +106,87 @@ if ! npx --yes hyperframes skills update 2>/dev/null; then
   echo "$n skills do hyperframes registradas a partir de $HYPERFRAMES/skills"
 fi
 
-echo "== 4/5 Python (PIL para overlays, numpy para batidas) =="
+echo "== 4/7 navegador de render (chrome headless) =="
+# Hyperframes e remotion renderizam com um Chrome Headless Shell local, e nenhum
+# dos dois acha um sozinho aqui: o remotion baixa o dele de remotion.media, que o
+# environment recusa com 403. O download do hyperframes passa, entao ele baixa uma
+# vez e o remotion reaproveita o mesmo binario (ver remotion.config.ts abaixo).
+if ! npx --yes hyperframes browser ensure 2>/dev/null; then
+  echo "AVISO: 'hyperframes browser ensure' falhou; render local indisponivel ate rodar de novo"
+fi
+# Mesma historia do lado das libs: o template do `hyperframes init` carrega o GSAP
+# de cdn.jsdelivr.net, tambem bloqueado, e sem ele o render aborta com
+# sub_timeline_script_failure. Cacheia a copia do npm agora; cada projeto novo
+# recebe a sua com `bash scripts/vendor-gsap.sh <projeto>`.
+bash "$REPO_ROOT/scripts/vendor-gsap.sh" \
+  || echo "AVISO: GSAP nao cacheado; rode scripts/vendor-gsap.sh antes do primeiro render"
+
+echo "== 5/7 remotion =="
+# Remotion e o segundo motor de video (React). Mora fora do repo, como as outras
+# ferramentas, e so precisa existir uma vez por container.
+mkdir -p "$REMOTION"
+cat > "$REMOTION/package.json" <<'JSON'
+{
+  "name": "remotion-studio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render"
+  }
+}
+JSON
+# O caminho do Chrome nao pode ser fixo: a versao muda a cada update do
+# hyperframes. O config resolve na hora, e REMOTION_BROWSER_EXECUTABLE ganha de
+# tudo se o usuario quiser apontar para outro binario.
+cat > "$REMOTION/remotion.config.ts" <<'TS'
+import {existsSync, readdirSync} from 'node:fs';
+import {join} from 'node:path';
+import {Config} from '@remotion/cli/config';
+
+// remotion.media esta fora da allowlist do environment (403), entao o download
+// automatico do Chrome Headless Shell falha. Reaproveitamos o binario que o
+// hyperframes baixa em `npx hyperframes browser ensure`, com o headless shell do
+// Playwright como segunda opcao.
+const candidatos = (): string[] => {
+  const achados: string[] = [];
+  const hfRoot = '/root/.cache/hyperframes/chrome/chrome-headless-shell';
+  if (existsSync(hfRoot)) {
+    for (const v of readdirSync(hfRoot)) {
+      achados.push(join(hfRoot, v, 'chrome-headless-shell-linux64', 'chrome-headless-shell'));
+    }
+  }
+  const pw = '/opt/pw-browsers';
+  if (existsSync(pw)) {
+    for (const d of readdirSync(pw)) {
+      if (d.startsWith('chromium_headless_shell')) {
+        achados.push(join(pw, d, 'chrome-linux', 'headless_shell'));
+      }
+    }
+  }
+  return achados;
+};
+
+const chrome = process.env.REMOTION_BROWSER_EXECUTABLE ?? candidatos().find((c) => existsSync(c));
+
+if (chrome) {
+  Config.setBrowserExecutable(chrome);
+} else {
+  console.warn('[remotion] Chrome headless nao encontrado. Rode: npx hyperframes browser ensure');
+}
+
+Config.setVideoImageFormat('jpeg');
+Config.setConcurrency(2);
+TS
+if ! (cd "$REMOTION" && npm install --silent remotion @remotion/cli @remotion/bundler @remotion/renderer react react-dom); then
+  echo "AVISO: deps do remotion nao instaladas (npm bloqueado?). Renders em React indisponiveis."
+fi
+
+echo "== 6/7 Python (PIL para overlays, numpy para batidas) =="
 python3 -c 'import PIL' 2>/dev/null || pip3 install pillow || echo "AVISO: pillow não instalado (pypi bloqueado). Lettering/overlays indisponíveis."
 python3 -c 'import numpy' 2>/dev/null || pip3 install numpy || echo "AVISO: numpy não instalado (pypi bloqueado). Detecção de batidas indisponível."
 
-echo "== 5/5 estúdio =="
+echo "== 7/7 estúdio =="
 ln -sfn "$REPO_ROOT" ~/eita-conteudo
 echo "~/eita-conteudo -> $REPO_ROOT"
 
