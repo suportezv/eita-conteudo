@@ -115,9 +115,14 @@ def cortes_de_imagem():
     edl = json.load(open(EDIT / "edl.json"))
     fora, quadros = [], 0
     for r in edl["ranges"]:
-        fora.append(quadros / float(FPS))
+        # +1 medido: procurando o maior salto de luminancia em volta de cada
+        # fronteira no proprio base_preview, o primeiro quadro do segmento novo
+        # cai um quadro depois do que a soma dos ceil() preve, em sete de oito
+        # fronteiras testadas. Sem esse quadro o enquadramento mudava um quadro
+        # depois do corte e a troca aparecia como um solavanco.
+        fora.append((quadros + 1) / float(FPS))
         quadros += math.ceil((r["end"] - r["start"]) * FPS)
-    fora.append(quadros / float(FPS))
+    fora.append((quadros + 1) / float(FPS))
     return fora
 
 def plano(fim_video=443.81):
