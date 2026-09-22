@@ -116,6 +116,16 @@ def plano(fim_video=443.81):
     kf[-1][1] = max(kf[-1][1], fim_video)
     return [(a, b, z0, z1, abs(z1 - z0) < 1e-9) for a, b, z0, z1 in kf]
 
+def dentro(T, a, b):
+    """Intervalo semiaberto [a, b).
+
+    between() do ffmpeg e fechado nos dois lados, entao no quadro exato da
+    fronteira os dois trechos vizinhos valiam 1 e os valores somavam. O zoom
+    pulava para o teto por um quadro e o quadro inteiro dava um salto, que era o
+    que aparecia como um elemento entrando e saindo na frente de quem fala.
+    """
+    return f"gte({T},{a:.3f})*lt({T},{b:.3f})"
+
 def expr_z(kfs):
     T = f"(on/{FPS})"
     termos = []
@@ -126,18 +136,17 @@ def expr_z(kfs):
         else:
             u = f"(({T}-{a:.3f})/{b-a:.3f})"
             val = f"({z0:.4f}+{z1-z0:.4f}*(0.5-0.5*cos(PI*{u})))"
-        termos.append(f"between({T},{a:.3f},{b:.3f})*{val}")
-    # A cobertura e continua; o between e fechado nos dois lados, entao a
-    # fronteira exata cairia em dois termos. min() segura em 1.30 de teto.
-    return f"min({Z_MAX:.2f},{'+'.join(termos)})"
+        termos.append(f"{dentro(T, a, b)}*{val}")
+    # Com os intervalos semiabertos a soma tem exatamente um termo ativo por
+    # quadro. Depois do ultimo trecho nao ha nenhum, dai o max com Z_ABERTO.
+    return f"max({Z_ABERTO:.2f},min({Z_MAX:.2f},{'+'.join(termos)}))"
 
 def expr_centro(segs, campo):
     T = f"(on/{FPS})"
     i = 2 if campo == "cx" else 3
-    termos = [f"between({T},{a:.3f},{b:.3f})*{s[i]:.1f}" for a, b, *_ in [] ] # placeholder
-    termos = [f"between({T},{s[0]:.3f},{s[1]:.3f})*{s[i]:.1f}" for s in segs]
+    termos = [f"{dentro(T, s[0], s[1])}*{s[i]:.1f}" for s in segs]
     padrao = 960.0 if campo == "cx" else 420.0
-    cobertura = "+".join(f"between({T},{s[0]:.3f},{s[1]:.3f})" for s in segs)
+    cobertura = "+".join(dentro(T, s[0], s[1]) for s in segs)
     return f"({'+'.join(termos)})+(1-min(1,{cobertura}))*{padrao}"
 
 def filtro():
