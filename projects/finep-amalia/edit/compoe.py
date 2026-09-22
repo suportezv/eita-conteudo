@@ -16,6 +16,8 @@ BASE = EDIT / "base_preview.mp4"   # render.py sufixa o nome no modo preview
 SAIDA = EDIT.parent / "renders" / "previa-v2.mp4"
 SAIDA.parent.mkdir(exist_ok=True)
 
+# Borda fina: Outline=2 no espaco de 288 do libass da ~7.5px em 1080p, que o
+# cliente apontou como grossa demais. Com 1 fica ~3.7px, so o contorno de leitura.
 # Sem PlayRes no SRT o libass assume 384x288 e TODAS as medidas de estilo vivem
 # nesse espaco, nao em pixels. FontSize 13 da ~49px em 1080p: pequena, como
 # pedido. As margens tambem: 180 de cada lado (a primeira tentativa) sobrava 24
@@ -23,7 +25,7 @@ SAIDA.parent.mkdir(exist_ok=True)
 # quadro, que e onde a quebra de 42 caracteres do monta_srt.py cabe.
 ESTILO = ("FontName=League Spartan,FontSize=13,Bold=0,"
           "PrimaryColour=&H00FFFFFF,OutlineColour=&HC8000000,BackColour=&H00000000,"
-          "BorderStyle=1,Outline=2,Shadow=1,Spacing=0.4,"
+          "BorderStyle=1,Outline=1,Shadow=0,Spacing=0.4,"
           "Alignment=2,MarginV=52,MarginL=40,MarginR=40")
 
 ent = ["-i", str(BASE)]

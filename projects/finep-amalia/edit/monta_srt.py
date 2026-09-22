@@ -7,9 +7,19 @@ frase a frase, caixa natural, para acompanhar a leitura sem competir com ela.
 Tempo de saida = palavra.inicio - inicio_do_segmento + deslocamento_do_segmento,
 senao a legenda desalinha depois da concatenacao dos segmentos.
 """
-import json, pathlib
+import json, pathlib, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 EDIT = pathlib.Path(__file__).resolve().parent
+# O Scribe erra nomes proprios do projeto; a lista corrige na montagem, para a
+# correcao valer sempre que o SRT for regerado.
+CORRECOES = {
+    "Aita": "EITA", "Aíta": "EITA",
+    "Artur": "Arthur",
+    "Normalize": "Normalyze",
+    "Amália": "AMALIA", "Amalia": "AMALIA", "Amalía": "AMALIA",
+}
+
 MAX_CHARS = 42      # por linha
 MAX_LINHAS = 2
 FIM_FRASE = ".?!"
@@ -33,6 +43,21 @@ def quebra(txt, largura):
             atual = f"{atual} {p}".strip()
     if atual: linhas.append(atual)
     return linhas
+
+def corrige(txt):
+    import re
+    for errado, certo in CORRECOES.items():
+        txt = re.sub(rf"\b{re.escape(errado)}\b", certo, txt)
+    return txt
+
+def janelas_de_motion():
+    """Trechos em que um motion esta na tela.
+
+    Regra do cliente: legenda e lettering nunca dividem a tela. Enquanto o
+    motion aparece, quem conta a informacao e ele, entao a legenda sai.
+    """
+    from pecas import PECAS
+    return [(ini, ini + dur) for _n, ini, dur, _f in PECAS]
 
 def monta():
     edl = json.load(open(EDIT / "edl.json"))
@@ -79,8 +104,27 @@ def monta():
         for parte in partes:
             a = parte[0]["start"] - ini + desloc
             b = parte[-1]["end"] - ini + desloc + 0.18   # respiro para leitura
-            txt = " ".join(x["text"].strip() for x in parte)
+            txt = corrige(" ".join(x["text"].strip() for x in parte))
             saida.append([a, b, txt])
+
+    # Fora as legendas que caem sobre um motion. Quem encosta na borda e
+    # aparado; o que sobra curto demais some.
+    RESP = 0.25   # respiro entre a legenda e o motion
+    recortado = []
+    for a, b, txt in saida:
+        pedacos = [(a, b)]
+        for ja, jb in janelas_de_motion():
+            ja, jb = ja - RESP, jb + RESP
+            novos = []
+            for x, y in pedacos:
+                if y <= ja or x >= jb: novos.append((x, y)); continue
+                if x < ja: novos.append((x, ja))
+                if y > jb: novos.append((jb, y))
+            pedacos = novos
+        for x, y in pedacos:
+            if y - x >= 0.7:            # abaixo disso a legenda pisca e atrapalha
+                recortado.append([x, y, txt])
+    saida = recortado
 
     # O respiro de 0.18s no fim pode invadir a legenda seguinte, e libass
     # desenha as duas ao mesmo tempo. Limita cada fim ao inicio da proxima.

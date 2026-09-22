@@ -16,7 +16,6 @@ def gc(nome, cargo, dur):
     f_nome, f_cargo = fonte(600, 56), fonte(400, 32)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, Y - 150, X + 980, H, forca=175, alfa=a)
         p1 = out_cubic(t / 0.45)
         regua(d, X - 26, Y + 96 - 96 * p1, 5, 96 * p1, ACQUA, a)
         p2 = out_cubic((t - 0.22) / 0.55)
@@ -32,8 +31,6 @@ def numeros(itens, dur, y=286):
     f_num, f_rot, f_ap = fonte(700, 142), fonte(600, 38), fonte(400, 28)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        alt = 330 * len(itens)
-        scrim(img, 0, y - 190, X + 780, y + alt + 150, forca=180, alfa=a)
         for i, (valor, rot, ap, atraso) in enumerate(itens):
             yy = y + i * 330
             tl = t - atraso
@@ -55,7 +52,6 @@ def chip(titulo, linhas, dur, y=600):
     f_tit, f_lin = fonte(600, 42), fonte(400, 32)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, y - 150, X + 1120, y + 110 + 52 * len(linhas), forca=198, alfa=a)
         p1 = out_cubic(t / 0.5)
         regua(d, X, y - 18, 110 * p1, 4, ACQUA, a)
         p2 = out_cubic((t - 0.2) / 0.55)
@@ -76,7 +72,6 @@ def sigla(dur):
     X, Y = 168, 380
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, Y - 170, 1420, Y + 480, forca=185, alfa=a)
         for i, (ini, resto) in enumerate(palavras):
             p = out_cubic((t - 0.35 - i * 0.42) / 0.55)
             if p <= 0: continue
@@ -89,9 +84,9 @@ def titulo(txt, sub, dur, y=400):
     f_t, f_s = fonte(700, 190), fonte(400, 40)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, y - 220, W, y + 420, forca=200, alfa=a)
+        lg = larg(txt.upper(), f_t)
         p = out_cubic(t / 0.8)
-        lg = largura(d, txt.upper(), f_t)
+        lg = larg(txt.upper(), f_t)
         texto(d, (W/2, y + 24 * (1 - p)), txt.upper(), f_t, ACQUA, p * a, ancora="ma")
         regua(d, W/2 - lg/2, y + 218, lg * out_cubic((t - 0.5) / 0.7), 5, AZUL, a)
         p2 = out_cubic((t - 0.75) / 0.6)
@@ -100,41 +95,72 @@ def titulo(txt, sub, dur, y=400):
 
 # --------------------------------------------------------------- ilustracoes
 def ilu_filme(dur):
-    """Tres fotos soltas contra uma tira de filme continua.
+    """Tres medicoes de clima soltas contra o ano inteiro observado.
 
-    E a metafora literal da fala: fotografias avulsas nao contam o filme.
+    Ilustra a fala sem ser literal: olhar o clima em janeiro, junho e dezembro
+    nao conta como foi o ano, do mesmo jeito que tres fotografias nao contam o
+    filme. A tira de pelicula ao lado e a observacao continua.
     """
-    f_leg, f_rot = fonte(400, 36), fonte(600, 32)
-    X, yA, yB = 300, 300, 660
+    f_leg, f_rot, f_mes = fonte(400, 34), fonte(600, 32), fonte(600, 28)
+    X, yA, yB = 300, 300, 680
+
+    def sol(d, cx, cy, r, cor, al):
+        d.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(*cor, al), width=4)
+        for k in range(8):
+            ang = math.radians(k * 45)
+            x0, y0 = cx + math.cos(ang)*(r+9),  cy + math.sin(ang)*(r+9)
+            x1, y1 = cx + math.cos(ang)*(r+22), cy + math.sin(ang)*(r+22)
+            d.line([x0, y0, x1, y1], fill=(*cor, al), width=4)
+
+    def chuva(d, cx, cy, r, cor, al):
+        """Nuvem por arcos, nao por elipses inteiras.
+
+        Com elipses fechadas o arco de baixo cruzava a base e o icone lia como
+        dois circulos, nao como nuvem.
+        """
+        base = cy + r * 0.34
+        d.arc([cx - r*1.05, base - r*0.95, cx - r*0.05, base + r*0.05], 180, 360,
+              fill=(*cor, al), width=4)
+        d.arc([cx - r*0.45, base - r*1.28, cx + r*0.85, base + r*0.05], 185, 355,
+              fill=(*cor, al), width=4)
+        d.arc([cx + r*0.28, base - r*0.78, cx + r*1.08, base + r*0.05], 190, 360,
+              fill=(*cor, al), width=4)
+        d.line([cx - r*1.02, base, cx + r*1.05, base], fill=(*cor, al), width=4)
+        for k in range(3):
+            x = cx - r*0.6 + k * r*0.6
+            d.line([x, base + r*0.26, x - 9, base + r*0.82], fill=(*cor, al), width=4)
+
+    MEDICOES = [("JANEIRO", sol), ("JUNHO", chuva), ("DEZEMBRO", sol)]
+
     def desenha(img, d, t):
         a = veu(img, t, dur)
         if a <= 0: return
-        texto(d, (X, yA - 74), "HOJE", f_rot, CINZA, out_cubic(t/0.4) * a)
-        # 3 fotos esparsas, cinza: informacao pontual
-        for i in range(3):
-            p = out_cubic((t - 0.3 - i * 0.22) / 0.5)
+        texto(d, (X, yA - 78), "MEDIÇÕES PONTUAIS", f_rot, CINZA, out_cubic(t/0.4) * a)
+        for i, (mes, glifo) in enumerate(MEDICOES):
+            p = out_cubic((t - 0.3 - i * 0.26) / 0.5)
             if p <= 0: continue
-            x = X + i * 420
-            d.rounded_rectangle([x, yA, x + 230, yA + 168], 8,
-                                outline=(*CINZA, int(230 * p * a)), width=3)
-            d.line([x + 28, yA + 132, x + 88, yA + 78, x + 140, yA + 132], width=4,
-                   fill=(*CINZA, int(200 * p * a)))
-        p = out_cubic((t - 1.0) / 0.5)
-        if p > 0: texto(d, (X, yA + 202), "pesquisas e avaliações pontuais", f_leg, CINZA, p * a)
-        # tira de filme: continuidade
-        texto(d, (X, yB - 74), "LONGITUDINAL", f_rot, ACQUA, out_cubic((t-1.5)/0.4) * a)
-        p2 = out_cubic((t - 1.8) / 1.5)
+            x = X + i * 400
+            al = int(235 * p * a)
+            d.rounded_rectangle([x, yA, x + 250, yA + 190], 10, outline=(*CINZA, al), width=3)
+            glifo(d, x + 125, yA + 78, 40, CINZA, al)
+            texto(d, (x + 125, yA + 146), mes, f_mes, CINZA, p * a, ancora="ma")
+        p = out_cubic((t - 1.1) / 0.5)
+        if p > 0:
+            texto(d, (X, yA + 218), "três dias não contam o ano", f_leg, CINZA, p * a)
+        texto(d, (X, yB - 78), "OBSERVAÇÃO CONTÍNUA", f_rot, ACQUA, out_cubic((t-1.6)/0.4) * a)
+        p2 = out_cubic((t - 1.9) / 1.5)
         if p2 > 0:
             n = 16
             for i in range(n):
                 if i / n > p2: break
                 x = X + i * 82
-                d.rounded_rectangle([x, yB, x + 70, yB + 168], 5,
+                d.rounded_rectangle([x, yB, x + 70, yB + 150], 5,
                                     outline=(*ACQUA, int(235 * a)), width=3)
-                for k in (yB + 10, yB + 146):   # perfuracoes da pelicula
+                for k in (yB + 10, yB + 128):   # perfuracoes da pelicula
                     d.rectangle([x + 10, k, x + 22, k + 12], fill=(*ACQUA, int(150 * a)))
-        p3 = out_cubic((t - 3.2) / 0.6)
-        if p3 > 0: texto(d, (X, yB + 202), "mudança observada ao longo do tempo", f_leg, BRANCO, p3 * a)
+        p3 = out_cubic((t - 3.3) / 0.6)
+        if p3 > 0:
+            texto(d, (X, yB + 186), "o ano inteiro, dia a dia", f_leg, BRANCO, p3 * a)
     return desenha
 
 def ilu_longitudinal(dur):
@@ -245,12 +271,10 @@ def socios(dur):
         return im
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, Y - 160, 560, Y + 4 * 158 + 70, forca=200, alfa=a)
         for i, (nome, cargo, ini, atraso) in enumerate(SOCIOS):
             p = out_cubic((t - atraso) / 0.6)
             if p <= 0: continue
             yy = Y + i * 158
-            cx = 210 + 14 * (1 - p)
             al = int(255 * p * a)
             im = foto(ini)
             if im is not None:
@@ -297,9 +321,12 @@ PECAS = [
 if __name__ == "__main__":
     import json
     alvo = sys.argv[1] if len(sys.argv) > 1 else None
+    VEU = {"ilu-filme", "ilu-longitudinal", "ilu-camada"}
     for nome, ini, dur, fab in PECAS:
         if alvo and alvo != nome: continue
-        render(nome, dur, fab())
+        # A sombra sai do alfa do desenho; nas pecas de veu o desenho e o quadro
+        # inteiro, entao ela cobriria tudo.
+        render(nome, dur, fab(), sombra=nome not in VEU)
         print(f"  {nome:18s} {ini:7.2f}s +{dur:4.1f}s")
     json.dump([{"file": f"animacoes/{n}.mov", "start_in_output": i, "duration": d}
                for n, i, d, _ in PECAS],

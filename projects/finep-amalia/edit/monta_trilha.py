@@ -26,7 +26,7 @@ BLOCOS = [
 def costura(seq, destino):
     ent, filtros, rotulo = [], [], None
     for i, s in enumerate(seq):
-        ent += ["-i", str(AUD / f"leito-{s}.mp3")]
+        ent += ["-i", str(AUD / f"leito-{s}.wav")]
     for i in range(len(seq)):
         filtros.append(f"[{i}:a]aformat=sample_rates=44100:channel_layouts=stereo[s{i}]")
     rotulo = "[s0]"
