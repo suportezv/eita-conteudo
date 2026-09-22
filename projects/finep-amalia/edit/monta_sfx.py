@@ -8,7 +8,7 @@ sys.path.insert(0, '.')
 from pecas import PECAS, SOCIOS
 
 AUD = pathlib.Path(__file__).resolve().parent / "audio"
-DUR = 443.81
+DUR = 433.81
 
 eventos = []   # (tempo, arquivo, ganho_db)
 for nome, ini, dur, _ in PECAS:

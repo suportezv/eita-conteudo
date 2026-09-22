@@ -99,7 +99,7 @@ def centro_por_segmento():
     a troca de locutor dava dois solavancos em vez de um corte.
     """
     rostos = json.load(open(EDIT / "rostos.json"))
-    edl = json.load(open(EDIT / "edl.json"))
+    edl = json.load(open(EDIT / "edl-final.json"))
     cortes = cortes_de_imagem()
     fora = []
     for i, r in enumerate(edl["ranges"]):
@@ -117,7 +117,7 @@ def cortes_de_imagem():
     solavancos. Somando ceil(duracao*fps) o erro fica abaixo de um quadro.
     """
     import math
-    edl = json.load(open(EDIT / "edl.json"))
+    edl = json.load(open(EDIT / "edl-final.json"))
     fora, quadros = [], 0
     for r in edl["ranges"]:
         # +1 medido: procurando o maior salto de luminancia em volta de cada
@@ -130,14 +130,15 @@ def cortes_de_imagem():
     fora.append((quadros + 0) / float(FPS))
     return fora
 
-def plano(fim_video=443.81):
+def plano(fim_video=433.81):
     """(t_ini, t_fim, z_ini, z_fim, corte). Corte = z constante no trecho.
 
     Os vaos entre uma frase e a seguinte sao costurados: cada trecho se estica
     ate o inicio do proximo. Sem isso o enquadramento voltava ao aberto durante
     o silencio e piscava a cada respiracao de quem fala.
     """
-    kf = [[a, b, z0, z1] for a, b, z0, z1 in PLANO]
+    from linha import desloca_plano
+    kf = [[a, b, z0, z1] for a, b, z0, z1 in desloca_plano(PLANO)]
 
     # Encaixa cada troca de enquadramento no corte de imagem mais proximo. As
     # frases comecam com padding, entao o trecho de zoom caia 60 a 250ms depois

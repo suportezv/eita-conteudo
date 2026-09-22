@@ -15,12 +15,12 @@ PASSO = 22.0 - XF  # quanto cada leito adiciona ao total
 # Por bloco: (inicio na saida, fim, sequencia de leitos)
 # bloco 1 abre minimo e ganha corpo; as cartelas ficam suspensas; o 5 tem o
 # pulso dos dados; o 6 resolve.
+# Sem as cartelas de Arthur e Ana, tudo depois de 161.55 anda 10s para tras.
 BLOCOS = [
     ("b1", 0.00,   161.55, ["a","a","b","b","c","b","b","d","b"]),
-    ("cartelas", 161.55, 171.55, ["e"]),
-    ("b4", 171.55, 262.89, ["b","b","c","b","d","b"]),
-    ("b5", 262.89, 353.77, ["c","c","b","c","c","b"]),
-    ("b6", 353.77, 443.81, ["b","d","d","b","d","d"]),
+    ("b4", 161.55, 252.89, ["b","b","c","b","d","b"]),
+    ("b5", 252.89, 343.77, ["c","c","b","c","c","b"]),
+    ("b6", 343.77, 433.81, ["b","d","d","b","d","d"]),
 ]
 
 def costura(seq, destino):
@@ -65,7 +65,7 @@ for i, (p, ini, dur) in enumerate(partes):
 mix = "".join(f"[d{i}]" for i in range(len(partes)))
 filtros.append(f"{mix}amix=inputs={len(partes)}:duration=longest:normalize=0[out]")
 subprocess.run(["ffmpeg", "-v", "error", *ent, "-filter_complex", ";".join(filtros),
-                "-map", "[out]", "-t", "443.81", "-c:a", "pcm_s16le",
+                "-map", "[out]", "-t", "433.81", "-c:a", "pcm_s16le",
                 "-y", str(AUD / "trilha.wav")], check=True)
 print("trilha.wav:", subprocess.run(["ffprobe","-v","error","-show_entries","format=duration",
       "-of","csv=p=0",str(AUD/"trilha.wav")],capture_output=True,text=True).stdout.strip())

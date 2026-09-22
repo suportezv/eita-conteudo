@@ -40,7 +40,7 @@ def limpa(tok):
 
 def palavras_na_saida():
     """Todas as palavras do corte, ja com tempo na linha de tempo final."""
-    edl = json.load(open(EDIT / "edl.json"))
+    edl = json.load(open(EDIT / "edl-final.json"))
     fora, desloc = [], 0.0
     for r in edl["ranges"]:
         src, ini, fim = r["source"], float(r["start"]), float(r["end"])

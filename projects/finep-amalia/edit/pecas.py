@@ -353,8 +353,10 @@ PECAS = [
     ("logos-produtos", 116.90,  5.2, lambda: logos(5.2)),
     ("chip-colombia",  134.80,  5.0, lambda: chip("1ª aplicação internacional",
         ["Colômbia, 2026", "acolhimento a pessoas afetadas por desastre"], 5.0)),
-    ("titulo-amalia",  158.60,  5.2, lambda: titulo("AMALIA",
-        "Arquitetura Multiagente de IA", 5.2)),
+    # Comeca antes e termina exatamente no corte do bloco: com as cartelas fora,
+    # a duracao antiga passava 2.25s para dentro do bloco seguinte.
+    ("titulo-amalia",  157.30,  4.25, lambda: titulo("AMALIA",
+        "Arquitetura Multiagente de IA", 4.25)),
     ("bullets-desafios", 219.60, 7.5, lambda: chip("O que o AMALIA precisa resolver",
         ["memória longitudinal", "segurança e confiabilidade",
          "privacidade e governança"], 7.5, y=560)),
@@ -372,6 +374,9 @@ PECAS = [
     ("ilu-camada",     383.00,  7.5, lambda: ilu_camada(7.5)),
     ("cartela-final",  438.30,  5.5, lambda: titulo("AMALIA", "EITA Mental Tech", 5.5)),
 ]
+
+from linha import desloca_pecas
+PECAS = desloca_pecas(PECAS)
 
 if __name__ == "__main__":
     import json

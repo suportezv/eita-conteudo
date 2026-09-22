@@ -12,8 +12,8 @@ from pecas import PECAS
 
 EDIT = pathlib.Path(__file__).resolve().parent
 RAIZ = EDIT.parents[2]
-BASE = EDIT / "base_preview.mp4"   # render.py sufixa o nome no modo preview
-SAIDA = EDIT.parent / "renders" / "previa-v2.mp4"
+BASE = EDIT / "base_final.mp4"
+SAIDA = EDIT.parent / "renders" / "finep-amalia-v7.mp4"
 SAIDA.parent.mkdir(exist_ok=True)
 
 # Contorno opaco: no ASS o primeiro byte da cor e alfa INVERTIDO, entao o
@@ -74,9 +74,10 @@ tmp = EDIT / "_composto.mp4"
 subprocess.run(["ffmpeg", "-v", "error", "-stats", *ent,
                 "-filter_complex", ";".join(filtros),
                 "-map", "[outv]", "-map", "[outa]",
-                "-c:v", "libx264", "-crf", "20", "-preset", "medium", "-pix_fmt", "yuv420p",
+                # Entrega final: CRF 16 no preset slow.
+                "-c:v", "libx264", "-crf", "16", "-preset", "slow", "-pix_fmt", "yuv420p",
                 "-color_primaries","bt709","-color_trc","bt709","-colorspace","bt709",
-                "-c:a", "aac", "-b:a", "192k", "-y", str(tmp)], check=True)
+                "-c:a", "aac", "-b:a", "256k", "-y", str(tmp)], check=True)
 
 # loudnorm em duas passagens: a primeira mede, a segunda aplica.
 med = subprocess.run(["ffmpeg", "-v", "info", "-i", str(tmp),
