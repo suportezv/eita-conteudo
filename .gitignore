@@ -9,3 +9,5 @@ projects/**/*.wav
 projects/**/*.m4a
 projects/**/*.MOV
 projects/**/*.png
+projects/**/brutos/
+projects/**/proxy/
