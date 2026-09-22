@@ -11,3 +11,9 @@ projects/**/*.MOV
 projects/**/*.png
 projects/**/brutos/
 projects/**/proxy/
+
+# Transcricoes verbatim dos brutos: ficam locais. O repo e publico (raw.github
+# serve a midia para o Metricool) e a decupagem crua guarda tudo que foi dito
+# nas gravacoes, erros e bloopers inclusive. Regeneravel com transcribe_batch.py.
+projects/**/edit/transcripts/
+projects/**/edit/takes_packed.md

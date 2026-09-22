@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "sources": {
+    "marina-bloco1": "/home/user/eita-conteudo/projects/finep-amalia/edit/normalizado/marina-bloco1.mp4",
+    "ph2": "/home/user/eita-conteudo/projects/finep-amalia/edit/placeholders/bloco2.mp4",
+    "ph3": "/home/user/eita-conteudo/projects/finep-amalia/edit/placeholders/bloco3.mp4",
+    "marina-bloco4": "/home/user/eita-conteudo/projects/finep-amalia/edit/normalizado/marina-bloco4.mp4",
+    "clesio-bloco5": "/home/user/eita-conteudo/projects/finep-amalia/edit/normalizado/clesio-bloco5.mp4",
+    "marina-bloco6": "/home/user/eita-conteudo/projects/finep-amalia/edit/normalizado/marina-bloco6.mp4"
+  },
+  "ranges": [
+    {
+      "source": "marina-bloco1",
+      "start": 1.04,
+      "end": 17.36,
+      "beat": "BLOCO 1 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco1",
+      "start": 17.73,
+      "end": 53.72,
+      "beat": "BLOCO 1 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco1",
+      "start": 54.13,
+      "end": 69.06,
+      "beat": "BLOCO 1 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco1",
+      "start": 69.51,
+      "end": 163.82,
+      "beat": "BLOCO 1 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "ph2",
+      "start": 0.0,
+      "end": 5.0,
+      "beat": "BLOCO 2 - Arthur",
+      "quote": "(cartela 5s)",
+      "reason": "bruto ainda nao gravado"
+    },
+    {
+      "source": "ph3",
+      "start": 0.0,
+      "end": 5.0,
+      "beat": "BLOCO 3 - Ana",
+      "quote": "(cartela 5s)",
+      "reason": "bruto ainda nao gravado"
+    },
+    {
+      "source": "marina-bloco4",
+      "start": 0.78,
+      "end": 71.24,
+      "beat": "BLOCO 4 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco4",
+      "start": 71.73,
+      "end": 89.18,
+      "beat": "BLOCO 4 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco4",
+      "start": 89.61,
+      "end": 93.04,
+      "beat": "BLOCO 4 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "clesio-bloco5",
+      "start": 3.76,
+      "end": 33.36,
+      "beat": "BLOCO 5 - Clésio",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "clesio-bloco5",
+      "start": 34.67,
+      "end": 58.8,
+      "beat": "BLOCO 5 - Clésio",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "clesio-bloco5",
+      "start": 92.66,
+      "end": 101.1,
+      "beat": "BLOCO 5 - Clésio",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "clesio-bloco5",
+      "start": 101.61,
+      "end": 119.96,
+      "beat": "BLOCO 5 - Clésio",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "clesio-bloco5",
+      "start": 123.96,
+      "end": 134.32,
+      "beat": "BLOCO 5 - Clésio",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco6",
+      "start": 0.76,
+      "end": 8.06,
+      "beat": "BLOCO 6 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco6",
+      "start": 8.53,
+      "end": 12.2,
+      "beat": "BLOCO 6 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco6",
+      "start": 12.71,
+      "end": 37.92,
+      "beat": "BLOCO 6 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco6",
+      "start": 38.39,
+      "end": 55.14,
+      "beat": "BLOCO 6 - Marina",
+      "quote": "",
+      "reason": ""
+    },
+    {
+      "source": "marina-bloco6",
+      "start": 56.07,
+      "end": 93.18,
+      "beat": "BLOCO 6 - Marina",
+      "quote": "",
+      "reason": ""
+    }
+  ],
+  "grade": null,
+  "total_duration_s": 443.81
+}
