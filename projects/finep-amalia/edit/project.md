@@ -36,6 +36,22 @@ cor entre as duas câmeras, montar na ordem do roteiro.
 - *Slips mantidos por falta de take melhor:* "pri-privacidade" (bloco 1, 88.1s) e
   "pode muito além" sem o "ir" (bloco 6, 63.8s).
 
+- *Nivelamento de audio.* Medido com ebur128: Clesio -11.8 LUFS contra Marina
+  -18.6 / -18.6 / -20.2. Quase 7 dB de diferenca dao um tranco de volume a cada
+  troca de locutor, e o loudnorm final do render.py nao resolve porque normaliza o
+  programa inteiro de uma vez, nao cada locutor. `nivela_audio.sh` baixa o Clesio
+  em 6.7 dB e levanta o bloco 6 em 1.7 dB (com limitador, porque o pico ja estava
+  em -0.5 dBFS). Depois disso os quatro ficam entre -17.7 e -18.6 LUFS.
+
+**Verificacao do render (previa-v1):**
+
+- Duracao 444.13s contra 443.81s previstos no EDL.
+- Emenda dos takes do Clesio (316.62s na saida) sem estalo e sem palavra cortada.
+- Troca Marina/Clesio (262.89s) com niveis casados e sem salto de cor.
+- Cartelas com silencio limpo nos dois lados.
+- Cor no render final: U entre 126.2 e 128.1, V entre 132.7 e 133.5 do inicio ao
+  fim, ou seja o ajuste sobreviveu a extracao por segmento e ao concat.
+
 **Pendente:**
 
 - Gravar blocos 2 (Arthur) e 3 (Ana).
