@@ -31,52 +31,52 @@
   },
   {
     "file": "animacoes/titulo-amalia.mov",
-    "start_in_output": 158.6,
-    "duration": 5.2
+    "start_in_output": 157.3,
+    "duration": 4.25
   },
   {
     "file": "animacoes/bullets-desafios.mov",
-    "start_in_output": 219.6,
+    "start_in_output": 209.6,
     "duration": 7.5
   },
   {
     "file": "animacoes/ilu-longitudinal.mov",
-    "start_in_output": 250.4,
+    "start_in_output": 240.4,
     "duration": 7.0
   },
   {
     "file": "animacoes/gc-clesio.mov",
-    "start_in_output": 264.9,
+    "start_in_output": 254.9,
     "duration": 5.0
   },
   {
     "file": "animacoes/num-retencao.mov",
-    "start_in_output": 281.8,
+    "start_in_output": 271.8,
     "duration": 11.5
   },
   {
     "file": "animacoes/chip-24meses.mov",
-    "start_in_output": 295.4,
+    "start_in_output": 285.4,
     "duration": 4.5
   },
   {
     "file": "animacoes/socios.mov",
-    "start_in_output": 306.6,
+    "start_in_output": 296.6,
     "duration": 26.0
   },
   {
     "file": "animacoes/chip-finep.mov",
-    "start_in_output": 360.4,
+    "start_in_output": 350.4,
     "duration": 6.0
   },
   {
     "file": "animacoes/ilu-camada.mov",
-    "start_in_output": 383.0,
+    "start_in_output": 373.0,
     "duration": 7.5
   },
   {
     "file": "animacoes/cartela-final.mov",
-    "start_in_output": 438.3,
+    "start_in_output": 428.3,
     "duration": 5.5
   }
 ]
