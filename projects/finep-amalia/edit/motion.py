@@ -52,7 +52,7 @@ def regua(d, x, y, comp, alt, cor, alfa=1.0):
     if alfa <= 0.003 or comp <= 0: return
     d.rectangle([x, y, x + comp, y + alt], fill=(*cor, int(255 * alfa)))
 
-def scrim(img, x0, y0, x1, y1, forca=170, alfa=1.0, suave=0.42):
+def scrim(img, x0, y0, x1, y1, forca=170, alfa=1.0, suave=0.26):
     """Degrade escuro atras do texto: garante leitura sobre qualquer imagem.
 
     A queda e nos dois eixos. A primeira versao caia so na vertical e deixava

@@ -32,10 +32,10 @@ def numeros(itens, dur, y=286):
     f_num, f_rot, f_ap = fonte(700, 142), fonte(600, 38), fonte(400, 28)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        alt = 250 * len(itens)
+        alt = 330 * len(itens)
         scrim(img, 0, y - 190, X + 780, y + alt + 150, forca=180, alfa=a)
         for i, (valor, rot, ap, atraso) in enumerate(itens):
-            yy = y + i * 250
+            yy = y + i * 330
             tl = t - atraso
             if tl <= 0: continue
             p = out_cubic(tl / 0.9)
@@ -55,7 +55,7 @@ def chip(titulo, linhas, dur, y=600):
     f_tit, f_lin = fonte(600, 42), fonte(400, 32)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, y - 140, X + 1080, y + 90 + 52 * len(linhas), forca=175, alfa=a)
+        scrim(img, 0, y - 150, X + 1120, y + 110 + 52 * len(linhas), forca=198, alfa=a)
         p1 = out_cubic(t / 0.5)
         regua(d, X, y - 18, 110 * p1, 4, ACQUA, a)
         p2 = out_cubic((t - 0.2) / 0.55)
@@ -63,7 +63,7 @@ def chip(titulo, linhas, dur, y=600):
         for i, ln in enumerate(linhas):
             p = out_cubic((t - 0.5 - i * 0.28) / 0.5)
             if p <= 0: continue
-            texto(d, (X + 34, y + 62 + i * 50), ln, f_lin, CINZA, p * a)
+            texto(d, (X + 34, y + 62 + i * 50), ln, f_lin, (0xE6, 0xEC, 0xEF), p * a)
             d.ellipse([X + 8, y + 76 + i * 50, X + 20, y + 88 + i * 50],
                       fill=(*ACQUA, int(255 * p * a)))
     return desenha
@@ -245,7 +245,7 @@ def socios(dur):
         return im
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, Y - 150, 540, Y + 4 * 158 + 40, forca=180, alfa=a)
+        scrim(img, 0, Y - 160, 560, Y + 4 * 158 + 70, forca=200, alfa=a)
         for i, (nome, cargo, ini, atraso) in enumerate(SOCIOS):
             p = out_cubic((t - atraso) / 0.6)
             if p <= 0: continue
