@@ -102,6 +102,15 @@ def centro_por_segmento():
         desloc += dur
     return fora
 
+def cortes_de_imagem():
+    """Fronteiras dos segmentos do EDL na linha do tempo de saida."""
+    edl = json.load(open(EDIT / "edl.json"))
+    fora, off = [], 0.0
+    for r in edl["ranges"]:
+        fora.append(off); off += r["end"] - r["start"]
+    fora.append(off)
+    return fora
+
 def plano(fim_video=443.81):
     """(t_ini, t_fim, z_ini, z_fim, corte). Corte = z constante no trecho.
 
@@ -110,6 +119,16 @@ def plano(fim_video=443.81):
     o silencio e piscava a cada respiracao de quem fala.
     """
     kf = [[a, b, z0, z1] for a, b, z0, z1 in PLANO]
+
+    # Encaixa cada troca de enquadramento no corte de imagem mais proximo. As
+    # frases comecam com padding, entao o trecho de zoom caia 60 a 250ms depois
+    # do corte do EDL: davam dois solavancos seguidos em vez de um corte so. Foi
+    # o que apareceu na virada do Clesio para a Marina. Mudando no mesmo quadro,
+    # a troca de enquadramento ainda ajuda a esconder o corte.
+    cortes = cortes_de_imagem()
+    for b in kf:
+        d, c = min((abs(b[0] - x), x) for x in cortes)
+        if d < 0.35: b[0] = c
     kf[0][0] = 0.0
     for i in range(len(kf) - 1):
         kf[i][1] = kf[i+1][0]
