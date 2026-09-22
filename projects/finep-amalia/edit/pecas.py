@@ -12,7 +12,7 @@ FOTOS = pathlib.Path(__file__).resolve().parent / "fotos"
 
 # ---------------------------------------------------------------- GC credito
 def gc(nome, cargo, dur):
-    X, Y = 148, 838
+    X, Y = 148, 672
     f_nome, f_cargo = fonte(600, 56), fonte(400, 32)
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
@@ -50,7 +50,7 @@ def numeros(itens, dur, y=286):
     return desenha
 
 # ------------------------------------------------------------------- chip/tag
-def chip(titulo, linhas, dur, y=760):
+def chip(titulo, linhas, dur, y=600):
     X = 148
     f_tit, f_lin = fonte(600, 42), fonte(400, 32)
     def desenha(img, d, t):
@@ -230,7 +230,7 @@ def socios(dur):
     monograma. As fotos estao no Drive mas ainda nao foram compartilhadas.
     """
     f_nome, f_cargo, f_mono = fonte(600, 34), fonte(400, 26), fonte(700, 52)
-    R, Y = 72, 300
+    R, Y = 66, 276
     cache = {}
     def foto(ini):
         if ini in cache: return cache[ini]
@@ -245,11 +245,11 @@ def socios(dur):
         return im
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
-        scrim(img, 0, Y - 170, 560, Y + 4 * 190 + 60, forca=180, alfa=a)
+        scrim(img, 0, Y - 150, 540, Y + 4 * 158 + 40, forca=180, alfa=a)
         for i, (nome, cargo, ini, atraso) in enumerate(SOCIOS):
             p = out_cubic((t - atraso) / 0.6)
             if p <= 0: continue
-            yy = Y + i * 190
+            yy = Y + i * 158
             cx = 210 + 14 * (1 - p)
             al = int(255 * p * a)
             im = foto(ini)
@@ -278,7 +278,7 @@ PECAS = [
         "Arquitetura Multiagente de IA", 5.2)),
     ("bullets-desafios", 219.60, 7.5, lambda: chip("O que o AMALIA precisa resolver",
         ["memória longitudinal", "segurança e confiabilidade",
-         "privacidade e governança"], 7.5, y=620)),
+         "privacidade e governança"], 7.5, y=560)),
     ("ilu-longitudinal", 250.40, 7.0, lambda: ilu_longitudinal(7.0)),
     ("gc-clesio",      264.90,  5.0, lambda: gc("Clésio Souza", "Operação e marketing", 5.0)),
     ("num-retencao",   281.80, 11.5, lambda: numeros(

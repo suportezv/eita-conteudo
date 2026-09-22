@@ -35,7 +35,12 @@ for i, (nome, ini, dur, _) in enumerate(PECAS, start=1):
 atual = "[0:v]"
 for i, (nome, ini, dur, _) in enumerate(PECAS, start=1):
     prox = f"[v{i}]"
-    filtros.append(f"{atual}[a{i}]overlay=enable='between(t,{ini:.3f},{ini+dur:.3f})'{prox}")
+    # eof_action=pass e repeatlast=0 sao obrigatorios: sem eles o framesync do
+    # overlay segura o quadro principal enquanto espera uma entrada que so comeca
+    # la na frente, duplica quadros e empurra o fim do video. A primeira versao
+    # fez exatamente isso: aos 442s aparecia o Clesio no lugar da Marina.
+    filtros.append(f"{atual}[a{i}]overlay=enable='between(t,{ini:.3f},{ini+dur:.3f})'"
+                   f":eof_action=pass:repeatlast=0{prox}")
     atual = prox
 
 srt = str(EDIT / "master.srt").replace("'", r"\'")
