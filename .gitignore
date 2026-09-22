@@ -17,3 +17,10 @@ projects/**/proxy/
 # nas gravacoes, erros e bloopers inclusive. Regeneravel com transcribe_batch.py.
 projects/**/edit/transcripts/
 projects/**/edit/takes_packed.md
+projects/**/edit/animacoes/
+projects/**/edit/audio/
+projects/**/edit/normalizado/
+projects/**/edit/clips_*/
+projects/**/edit/base.mp4
+projects/**/edit/verify/
+projects/**/edit/master.srt
