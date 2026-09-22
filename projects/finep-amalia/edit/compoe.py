@@ -31,31 +31,10 @@ ESTILO = ("FontName=League Spartan,FontSize=13,Bold=0,"
           "BorderStyle=1,Outline=1,Shadow=0,Spacing=0.4,"
           "Alignment=2,MarginV=52,MarginL=40,MarginR=40")
 
-# Punch-ins discretos nos pontos de enfase. Ficam fora das janelas de motion de
-# tela cheia, senao o zoom mexeria numa imagem que esta escurecida de qualquer
-# forma. zoompan e nao crop: crop nao aceita `t` em w/h.
-ENFASE = [76.0, 103.5, 150.5, 175.0, 232.0, 272.0, 337.0, 420.0]
-AMP, SUBIDA, SUSTENTA, DESCIDA = 0.075, 0.95, 1.5, 1.15
-
-def expressao_zoom(fps=30):
-    """z(t) = 1 + soma de pulsos suaves. Meio cosseno na subida e na descida:
-    rampa linear em movimento de camera denuncia que e sintetico."""
-    T = f"(on/{fps})"
-    termos = []
-    for t0 in ENFASE:
-        t1, t2, t3 = t0 + SUBIDA, t0 + SUBIDA + SUSTENTA, t0 + SUBIDA + SUSTENTA + DESCIDA
-        sobe = f"(0.5-0.5*cos(PI*({T}-{t0})/{SUBIDA:.3f}))"
-        desce = f"(0.5-0.5*cos(PI*({t3:.3f}-{T})/{DESCIDA:.3f}))"
-        termos.append(
-            f"if(between({T},{t0:.3f},{t1:.3f}),{AMP}*{sobe},"
-            f"if(between({T},{t1:.3f},{t2:.3f}),{AMP},"
-            f"if(between({T},{t2:.3f},{t3:.3f}),{AMP}*{desce},0)))")
-    return "1+" + "+".join(termos)
-
-# Centro do zoom puxado para a direita e para cima: nos dois enquadramentos a
-# pessoa esta a direita do centro e o rosto fica na metade de cima.
-ZOOM = (f"zoompan=z='{expressao_zoom()}':d=1:"
-        "x='iw*0.55-(iw/zoom/2)':y='ih*0.42-(ih/zoom/2)':s=1920x1080:fps=30")
+# O enquadramento vem da decupagem em zoom.py: movimentos entre 100% e 130%
+# mirados no rosto detectado, com corte seco nas frases-chave.
+from zoom import filtro as filtro_zoom
+ZOOM = filtro_zoom()
 
 ent = ["-i", str(BASE)]
 filtros = [f"[0:v]{ZOOM}[base]"]
