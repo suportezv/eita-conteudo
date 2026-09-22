@@ -91,15 +91,20 @@ PLANO = [
 ]
 
 def centro_por_segmento():
-    """Rosto de cada trecho da linha do tempo de saida."""
+    """Rosto de cada trecho da linha do tempo de saida.
+
+    Usa as mesmas fronteiras calibradas do valor do zoom. Enquanto isso vinha da
+    soma bruta das duracoes, o centro trocava de rosto 110ms antes de a imagem
+    cortar: o quadro ainda era de quem saia, ja reenquadrado para quem entrava, e
+    a troca de locutor dava dois solavancos em vez de um corte.
+    """
     rostos = json.load(open(EDIT / "rostos.json"))
     edl = json.load(open(EDIT / "edl.json"))
-    fora, desloc = [], 0.0
-    for r in edl["ranges"]:
-        dur = r["end"] - r["start"]
+    cortes = cortes_de_imagem()
+    fora = []
+    for i, r in enumerate(edl["ranges"]):
         ro = rostos.get(r["source"])
-        if ro: fora.append((desloc, desloc + dur, ro["cx"], ro["cy"]))
-        desloc += dur
+        if ro: fora.append((cortes[i], cortes[i+1], ro["cx"], ro["cy"]))
     return fora
 
 def cortes_de_imagem():
