@@ -279,10 +279,10 @@ def logos(dur):
     for nome, cam in arquivos:
         if cam.exists():
             im = Image.open(cam).convert("RGBA")
-            alvo = 430
+            alvo = 330
             marcas.append(im.resize((alvo, int(im.height * alvo / im.width)), Image.LANCZOS))
     # Terco esquerdo, empilhadas: no centro elas caem sobre o rosto da Marina.
-    X, Y, PASSO = 168, 330, 190
+    X, Y, PASSO = 150, 292, 168
     def desenha(img, d, t):
         _, a = janela(t, 0, 1, saida=dur)
         if not marcas: return

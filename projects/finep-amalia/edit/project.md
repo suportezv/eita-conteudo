@@ -52,6 +52,33 @@ cor entre as duas câmeras, montar na ordem do roteiro.
 - Cor no render final: U entre 126.2 e 128.1, V entre 132.7 e 133.5 do inicio ao
   fim, ou seja o ajuste sobreviveu a extracao por segmento e ao concat.
 
+## Sessão 2 — 2026-09-22 (retorno do cliente)
+
+**Sombra dos motions.** Saiu o retangulo escuro atras do texto. A borda dele caia
+em algum lugar da cena e lia como painel mal posicionado; agora a sombra e o alfa
+do proprio desenho borrado, que acompanha a forma da letra.
+
+**Legenda.** Contorno opaco (no ASS o primeiro byte da cor e alfa invertido, e o
+&HC8 deixava a borda 78% transparente), contorno fino, e chunker reescrito para
+quebrar por frase em vez de por estouro de linha. Gaguejo, hesitacao e ruido nao
+entram. Legenda nao divide a tela com motion de tela cheia, mas divide com o GC
+de credito, que e discreto.
+
+**Trilha.** Leitos nivelados em -18 LUFS antes da costura: o gerador entregava
+-10.8 num e -18.9 noutro, e isso virava um salto de 6 dB no meio do bloco 6.
+
+**Movimento de camera.** Oito punch-ins de 7.5% nos pontos de enfase, com meio
+cosseno nas pontas, via zoompan.
+
+**Identificacao das fotos** (confirmada pelo cliente): 1 Marina, 2 Clesio,
+3 Arthur, 4 Anaclaudia. O Clesio foi identificado comparando a foto com o
+proprio video, nao pela ordem dos anexos.
+
+**Gotcha das logos.** Os PNGs das marcas ja chegam com alfa correto. Tentar
+"remover o fundo branco" calculando min(RGB) transforma o fundo transparente
+(onde RGB e 0) em preto opaco, e a sombra amplifica isso num retangulo preto.
+Usar o alfa do arquivo.
+
 **Pendente:**
 
 - Gravar blocos 2 (Arthur) e 3 (Ana).
