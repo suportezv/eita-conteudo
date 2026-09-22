@@ -12,17 +12,19 @@ from pecas import PECAS
 
 EDIT = pathlib.Path(__file__).resolve().parent
 RAIZ = EDIT.parents[2]
-BASE = EDIT / "base.mp4"
+BASE = EDIT / "base_preview.mp4"   # render.py sufixa o nome no modo preview
 SAIDA = EDIT.parent / "renders" / "previa-v2.mp4"
 SAIDA.parent.mkdir(exist_ok=True)
 
-# Legenda pequena: FontSize e relativo a PlayResY=288 do libass, entao 13 da
-# ~49px em 1080p. Grande o bastante para ler, discreto o bastante para nao
-# virar o assunto num video institucional.
+# Sem PlayRes no SRT o libass assume 384x288 e TODAS as medidas de estilo vivem
+# nesse espaco, nao em pixels. FontSize 13 da ~49px em 1080p: pequena, como
+# pedido. As margens tambem: 180 de cada lado (a primeira tentativa) sobrava 24
+# de 384 de largura util e cada palavra virava uma linha. 40 deixa ~79% do
+# quadro, que e onde a quebra de 42 caracteres do monta_srt.py cabe.
 ESTILO = ("FontName=League Spartan,FontSize=13,Bold=0,"
           "PrimaryColour=&H00FFFFFF,OutlineColour=&HC8000000,BackColour=&H00000000,"
           "BorderStyle=1,Outline=2,Shadow=1,Spacing=0.4,"
-          "Alignment=2,MarginV=52,MarginL=180,MarginR=180")
+          "Alignment=2,MarginV=52,MarginL=40,MarginR=40")
 
 ent = ["-i", str(BASE)]
 filtros = []

@@ -1,0 +1,77 @@
+[
+  {
+    "file": "animacoes/gc-marina.mov",
+    "start_in_output": 2.0,
+    "duration": 5.0
+  },
+  {
+    "file": "animacoes/ilu-filme.mov",
+    "start_in_output": 33.2,
+    "duration": 7.0
+  },
+  {
+    "file": "animacoes/eita-sigla.mov",
+    "start_in_output": 68.0,
+    "duration": 6.5
+  },
+  {
+    "file": "animacoes/num-usuarios.mov",
+    "start_in_output": 122.8,
+    "duration": 8.5
+  },
+  {
+    "file": "animacoes/chip-colombia.mov",
+    "start_in_output": 134.8,
+    "duration": 5.0
+  },
+  {
+    "file": "animacoes/titulo-amalia.mov",
+    "start_in_output": 158.6,
+    "duration": 5.2
+  },
+  {
+    "file": "animacoes/bullets-desafios.mov",
+    "start_in_output": 219.6,
+    "duration": 7.5
+  },
+  {
+    "file": "animacoes/ilu-longitudinal.mov",
+    "start_in_output": 250.4,
+    "duration": 7.0
+  },
+  {
+    "file": "animacoes/gc-clesio.mov",
+    "start_in_output": 264.9,
+    "duration": 5.0
+  },
+  {
+    "file": "animacoes/num-retencao.mov",
+    "start_in_output": 281.8,
+    "duration": 11.5
+  },
+  {
+    "file": "animacoes/chip-24meses.mov",
+    "start_in_output": 295.4,
+    "duration": 4.5
+  },
+  {
+    "file": "animacoes/socios.mov",
+    "start_in_output": 306.6,
+    "duration": 26.0
+  },
+  {
+    "file": "animacoes/chip-finep.mov",
+    "start_in_output": 360.4,
+    "duration": 6.0
+  },
+  {
+    "file": "animacoes/ilu-camada.mov",
+    "start_in_output": 383.0,
+    "duration": 7.5
+  },
+  {
+    "file": "animacoes/cartela-final.mov",
+    "start_in_output": 438.3,
+    "duration": 5.5
+  }
+]
