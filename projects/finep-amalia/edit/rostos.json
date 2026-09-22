@@ -1,0 +1,26 @@
+{
+  "clesio-bloco5": {
+    "cx": 1143.5,
+    "cy": 334.25,
+    "largura": 300.5,
+    "n": 14
+  },
+  "marina-bloco1": {
+    "cx": 1030.5,
+    "cy": 338.0,
+    "largura": 281.5,
+    "n": 14
+  },
+  "marina-bloco4": {
+    "cx": 1129.0,
+    "cy": 338.5,
+    "largura": 284.0,
+    "n": 14
+  },
+  "marina-bloco6": {
+    "cx": 1054.5,
+    "cy": 347.75,
+    "largura": 253.0,
+    "n": 14
+  }
+}
