@@ -103,12 +103,21 @@ def centro_por_segmento():
     return fora
 
 def cortes_de_imagem():
-    """Fronteiras dos segmentos do EDL na linha do tempo de saida."""
+    """Onde a imagem realmente corta, em tempo de saida.
+
+    Nao e a soma das duracoes do EDL: cada segmento e codificado num numero
+    inteiro de quadros e o arredondamento acumula. Medido contra os cortes
+    detectados no render, a soma simples errava 151ms no fim do video (quase
+    cinco quadros) e a troca de enquadramento caia depois do corte, dando dois
+    solavancos. Somando ceil(duracao*fps) o erro fica abaixo de um quadro.
+    """
+    import math
     edl = json.load(open(EDIT / "edl.json"))
-    fora, off = [], 0.0
+    fora, quadros = [], 0
     for r in edl["ranges"]:
-        fora.append(off); off += r["end"] - r["start"]
-    fora.append(off)
+        fora.append(quadros / float(FPS))
+        quadros += math.ceil((r["end"] - r["start"]) * FPS)
+    fora.append(quadros / float(FPS))
     return fora
 
 def plano(fim_video=443.81):
@@ -128,7 +137,7 @@ def plano(fim_video=443.81):
     cortes = cortes_de_imagem()
     for b in kf:
         d, c = min((abs(b[0] - x), x) for x in cortes)
-        if d < 0.35: b[0] = c
+        if d < 0.55: b[0] = c   # meio segundo: acima disso sao dois eventos distintos
     kf[0][0] = 0.0
     for i in range(len(kf) - 1):
         kf[i][1] = kf[i+1][0]
