@@ -1,120 +1,165 @@
-"""Monta o master.srt na linha do tempo de saida, frase a frase.
+"""Monta o master.srt na linha do tempo de saida.
 
-O build_master_srt do video-use quebra em blocos de 2 palavras e joga tudo em
-caixa alta, que e estilo de rede social. Aqui o video e institucional: legenda
-frase a frase, caixa natural, para acompanhar a leitura sem competir com ela.
+Regras que o video pede:
+  - legenda fiel ao que foi dito, sem gaguejo nem marcacao de ruido
+  - quebra por frase, nunca no meio de um sintagma: a versao anterior partia
+    quando estourava a segunda linha e produzia coisas como "olhando pra /
+    tras." ou "colocou ela no mundo / real."
+  - legenda e motion nunca dividem a tela, com uma excecao: o GC de credito,
+    que e discreto e nao rouba a leitura
 
-Tempo de saida = palavra.inicio - inicio_do_segmento + deslocamento_do_segmento,
-senao a legenda desalinha depois da concatenacao dos segmentos.
+Tempo de saida = palavra.inicio - inicio_do_segmento + deslocamento_do_segmento.
 """
-import json, pathlib, sys
+import json, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 EDIT = pathlib.Path(__file__).resolve().parent
-# O Scribe erra nomes proprios do projeto; a lista corrige na montagem, para a
-# correcao valer sempre que o SRT for regerado.
-CORRECOES = {
-    "Aita": "EITA", "Aíta": "EITA",
-    "Artur": "Arthur",
-    "Normalize": "Normalyze",
-    "Amália": "AMALIA", "Amalia": "AMALIA", "Amalía": "AMALIA",
-}
+MAX_CHARS, MAX_LINHAS = 42, 2
+PAUSA_FRASE = 0.9          # silencio longo tambem fecha legenda
+RESP_MOTION = 0.25
+MIN_DUR, RESPIRO = 0.85, 0.20
 
-MAX_CHARS = 42      # por linha
-MAX_LINHAS = 2
-FIM_FRASE = ".?!"
-PAUSA = 0.45        # silencio que tambem quebra a legenda
+# Nomes proprios que o Scribe erra.
+NOMES = {"Aita": "EITA", "Aíta": "EITA", "Artur": "Arthur",
+         "Normalize": "Normalyze", "Amália": "AMALIA", "Amalia": "AMALIA",
+         "Amalía": "AMALIA"}
+# Gagueira: legenda o que a pessoa quis dizer, nao o tropeco.
+GAGUEIRA = {"pri-privacidade": "privacidade", "obje--": "", "de--": ""}
 
-def palavras_em(src, a, b):
-    d = json.load(open(EDIT / "transcripts" / f"{src}.json"))
-    return [w for w in d["words"]
-            if w.get("type") == "word" and w["start"] >= a - 0.01 and w["end"] <= b + 0.01]
+def limpa(tok):
+    nucleo = tok.strip()
+    pont = ""
+    m = re.match(r"^(.*?)([,.;:!?]*)$", nucleo)
+    if m: nucleo, pont = m.group(1), m.group(2)
+    if nucleo.lower() in GAGUEIRA:
+        nucleo = GAGUEIRA[nucleo.lower()]
+        if not nucleo: return ""
+    for errado, certo in NOMES.items():
+        if nucleo == errado: nucleo = certo
+    return nucleo + pont
+
+def palavras_na_saida():
+    """Todas as palavras do corte, ja com tempo na linha de tempo final."""
+    edl = json.load(open(EDIT / "edl.json"))
+    fora, desloc = [], 0.0
+    for r in edl["ranges"]:
+        src, ini, fim = r["source"], float(r["start"]), float(r["end"])
+        tr = EDIT / "transcripts" / f"{src}.json"
+        if tr.exists():
+            for w in json.load(open(tr))["words"]:
+                if w.get("type") != "word": continue         # (palma), (batida)
+                if not (ini - 0.01 <= w["start"] and w["end"] <= fim + 0.01): continue
+                txt = limpa(w["text"])
+                if txt:
+                    fora.append({"t": w["start"] - ini + desloc,
+                                 "f": w["end"] - ini + desloc, "txt": txt})
+        desloc += fim - ini
+    return fora
+
+FILLER = {"é", "eh", "ah", "então"}
+
+def tira_filler(fr):
+    """Remove hesitacao no comeco da frase ("E, pesquisas periodicas...").
+
+    E marcacao de fala, nao conteudo: legendar isso so atrapalha a leitura.
+    """
+    while (len(fr) > 3 and fr[0]["txt"].lower().rstrip(",") in FILLER
+           and fr[0]["txt"].endswith(",")):
+        fr = fr[1:]
+    return fr
+
+def frases(ws):
+    """Agrupa em frases: fecha em . ? ! ou em silencio longo."""
+    out, atual = [], []
+    for i, w in enumerate(ws):
+        atual.append(w)
+        fecha = w["txt"][-1:] in ".?!"
+        pausa = i + 1 < len(ws) and ws[i+1]["t"] - w["f"] > PAUSA_FRASE
+        if fecha or pausa:
+            out.append(tira_filler(atual)); atual = []
+    if atual: out.append(tira_filler(atual))
+    return out
+
+def linhas(txt):
+    ls, cur = [], ""
+    for p in txt.split():
+        if cur and len(cur) + 1 + len(p) > MAX_CHARS: ls.append(cur); cur = p
+        else: cur = f"{cur} {p}".strip()
+    if cur: ls.append(cur)
+    return ls
+
+def cabe(ws):
+    return len(linhas(" ".join(w["txt"] for w in ws))) <= MAX_LINHAS
+
+def parte(ws):
+    """Divide a frase em legendas, preferindo cortar depois de pontuacao.
+
+    Divide sempre ao meio da parte que ainda nao cabe, procurando o respiro mais
+    proximo do meio. Assim as duas metades ficam parecidas, em vez de uma cheia
+    e uma com duas palavras.
+    """
+    if cabe(ws): return [ws]
+    meio = len(ws) // 2
+    RESPIRO_TOK = (",", ";", ":")
+    candidatos = sorted(range(1, len(ws)), key=lambda i: abs(i - meio))
+    corte = next((i for i in candidatos if ws[i-1]["txt"][-1:] in RESPIRO_TOK), None)
+    if corte is None:
+        CONJ = {"e", "mas", "que", "porque", "ou", "para", "pra", "com", "como", "quando"}
+        corte = next((i for i in candidatos if ws[i]["txt"].lower() in CONJ), meio)
+    return parte(ws[:corte]) + parte(ws[corte:])
+
+CAUDA = {"e", "ou", "mas", "que", "de", "da", "do", "a", "o", "em", "com",
+         "para", "pra", "por", "no", "na", "ao", "se", "the"}
+
+def ajeita(chunks):
+    """Duas correcoes depois da divisao.
+
+    1. Conjuncao ou preposicao pendurada no fim ("percebe o risco psicossocial
+       ou") passa para a legenda seguinte, que e onde ela pertence.
+    2. Legenda curta demais vira orfa na tela; junta com a vizinha se couber.
+    """
+    for _ in range(3):
+        mudou = False
+        for i in range(len(chunks) - 1):
+            while (len(chunks[i]) > 1
+                   and chunks[i][-1]["txt"].strip(",.;:").lower() in CAUDA
+                   and cabe([chunks[i][-1]] + chunks[i+1])):
+                chunks[i+1].insert(0, chunks[i].pop()); mudou = True
+        juntos, i = [], 0
+        while i < len(chunks):
+            if (i + 1 < len(chunks)
+                    and len(" ".join(w["txt"] for w in chunks[i])) < 22
+                    and cabe(chunks[i] + chunks[i+1])):
+                juntos.append(chunks[i] + chunks[i+1]); i += 2; mudou = True
+            else:
+                juntos.append(chunks[i]); i += 1
+        chunks = juntos
+        if not mudou: break
+    return chunks
+
+def janelas_sem_legenda():
+    """Motion que toma a tela. O GC de credito fica de fora: e discreto e o
+    cliente pediu legenda durante os creditos."""
+    from pecas import PECAS
+    return [(i, i + d) for n, i, d, _f in PECAS if not n.startswith("gc-")]
 
 def ts(s):
     ms = int(round(s * 1000)); h, ms = divmod(ms, 3600000); m, ms = divmod(ms, 60000)
     return f"{h:02d}:{m:02d}:{ms//1000:02d},{ms%1000:03d}"
 
-def quebra(txt, largura):
-    linhas, atual = [], ""
-    for p in txt.split():
-        if atual and len(atual) + 1 + len(p) > largura:
-            linhas.append(atual); atual = p
-        else:
-            atual = f"{atual} {p}".strip()
-    if atual: linhas.append(atual)
-    return linhas
-
-def corrige(txt):
-    import re
-    for errado, certo in CORRECOES.items():
-        txt = re.sub(rf"\b{re.escape(errado)}\b", certo, txt)
-    return txt
-
-def janelas_de_motion():
-    """Trechos em que um motion esta na tela.
-
-    Regra do cliente: legenda e lettering nunca dividem a tela. Enquanto o
-    motion aparece, quem conta a informacao e ele, entao a legenda sai.
-    """
-    from pecas import PECAS
-    return [(ini, ini + dur) for _n, ini, dur, _f in PECAS]
-
 def monta():
-    edl = json.load(open(EDIT / "edl.json"))
-    entradas, desloc = [], 0.0
-    for r in edl["ranges"]:
-        src, ini, fim = r["source"], float(r["start"]), float(r["end"])
-        dur = fim - ini
-        if not (EDIT / "transcripts" / f"{src}.json").exists():
-            desloc += dur; continue                      # cartelas nao tem fala
-        grupo = []
-        for w in palavras_em(src, ini, fim):
-            grupo.append(w)
-            txt = " ".join(x["text"].strip() for x in grupo)
-            prox_pausa = False
-            fecha = w["text"].strip()[-1:] in FIM_FRASE
-            # Cabe em duas linhas? Se passar, fecha aqui.
-            estourou = len(quebra(txt, MAX_CHARS)) > MAX_LINHAS
-            if estourou:
-                grupo.pop()
-                # Recua ate a ultima virgula: quebrar em "quando uma / organizacao"
-                # atrapalha a leitura, quebrar depois da virgula nao.
-                corte = len(grupo)
-                for i in range(len(grupo) - 1, max(0, len(grupo) - 5), -1):
-                    if grupo[i-1]["text"].strip()[-1:] in ",;:":
-                        corte = i; break
-                entradas.append((grupo[:corte], ini, desloc))
-                grupo = grupo[corte:] + [w]
-            elif fecha:
-                entradas.append((grupo, ini, desloc)); grupo = []
-        if grupo:
-            entradas.append((grupo, ini, desloc))
-        desloc += dur
+    itens = []
+    for fr in frases(palavras_na_saida()):
+        for ch in ajeita(parte(fr)):
+            itens.append([ch[0]["t"], ch[-1]["f"] + RESPIRO,
+                          " ".join(w["txt"] for w in ch)])
 
-    # Quebra tambem em pausas longas dentro de uma frase comprida.
-    saida, n = [], 0
-    for grupo, ini, desloc in entradas:
-        if not grupo: continue
-        sub, partes = [], []
-        for i, w in enumerate(grupo):
-            sub.append(w)
-            if i + 1 < len(grupo) and grupo[i+1]["start"] - w["end"] > PAUSA and len(sub) >= 3:
-                partes.append(sub); sub = []
-        if sub: partes.append(sub)
-        for parte in partes:
-            a = parte[0]["start"] - ini + desloc
-            b = parte[-1]["end"] - ini + desloc + 0.18   # respiro para leitura
-            txt = corrige(" ".join(x["text"].strip() for x in parte))
-            saida.append([a, b, txt])
-
-    # Fora as legendas que caem sobre um motion. Quem encosta na borda e
-    # aparado; o que sobra curto demais some.
-    RESP = 0.25   # respiro entre a legenda e o motion
+    # Fora o que cai sobre um motion; o resto e aparado nas bordas.
     recortado = []
-    for a, b, txt in saida:
+    for a, b, txt in itens:
         pedacos = [(a, b)]
-        for ja, jb in janelas_de_motion():
-            ja, jb = ja - RESP, jb + RESP
+        for ja, jb in janelas_sem_legenda():
+            ja, jb = ja - RESP_MOTION, jb + RESP_MOTION
             novos = []
             for x, y in pedacos:
                 if y <= ja or x >= jb: novos.append((x, y)); continue
@@ -122,24 +167,17 @@ def monta():
                 if y > jb: novos.append((jb, y))
             pedacos = novos
         for x, y in pedacos:
-            if y - x >= 0.7:            # abaixo disso a legenda pisca e atrapalha
-                recortado.append([x, y, txt])
-    saida = recortado
+            if y - x >= MIN_DUR: recortado.append([x, y, txt])
 
-    # O respiro de 0.18s no fim pode invadir a legenda seguinte, e libass
-    # desenha as duas ao mesmo tempo. Limita cada fim ao inicio da proxima.
-    saida.sort(key=lambda e: e[0])
-    for i in range(len(saida) - 1):
-        saida[i][1] = min(saida[i][1], saida[i+1][0] - 0.02)
-    saida = [e for e in saida if e[1] > e[0] + 0.15]
+    recortado.sort(key=lambda e: e[0])
+    for i in range(len(recortado) - 1):
+        recortado[i][1] = min(recortado[i][1], recortado[i+1][0] - 0.02)
+    recortado = [e for e in recortado if e[1] - e[0] >= 0.4]
 
-    linhas = []
-    for n, (a, b, txt) in enumerate(saida, 1):
-        linhas.append(f"{n}\n{ts(a)} --> {ts(b)}\n" + "\n".join(quebra(txt, MAX_CHARS)) + "\n")
-    (EDIT / "master.srt").write_text("\n".join(linhas), encoding="utf-8")
+    saida = []
+    for n, (a, b, txt) in enumerate(recortado, 1):
+        saida.append(f"{n}\n{ts(a)} --> {ts(b)}\n" + "\n".join(linhas(txt)) + "\n")
+    (EDIT / "master.srt").write_text("\n".join(saida), encoding="utf-8")
     return len(saida)
 
-n = monta()
-print(f"master.srt: {n} legendas")
-import subprocess
-print(subprocess.run(["head","-14",str(EDIT/"master.srt")],capture_output=True,text=True).stdout)
+print(f"master.srt: {monta()} legendas")

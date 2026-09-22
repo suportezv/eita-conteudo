@@ -103,13 +103,14 @@ def ilu_filme(dur):
     f_leg, f_rot, f_mes = fonte(400, 34), fonte(600, 32), fonte(600, 28)
     X, yA, yB = 300, 300, 680
 
-    def sol(d, cx, cy, r, cor, al):
-        d.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(*cor, al), width=4)
+    def sol(d, cx, cy, r, cor, al, w=4):
+        w = max(2, int(r/9))
+        d.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(*cor, al), width=w)
         for k in range(8):
             ang = math.radians(k * 45)
-            x0, y0 = cx + math.cos(ang)*(r+9),  cy + math.sin(ang)*(r+9)
-            x1, y1 = cx + math.cos(ang)*(r+22), cy + math.sin(ang)*(r+22)
-            d.line([x0, y0, x1, y1], fill=(*cor, al), width=4)
+            x0, y0 = cx + math.cos(ang)*(r*1.32), cy + math.sin(ang)*(r*1.32)
+            x1, y1 = cx + math.cos(ang)*(r*1.92), cy + math.sin(ang)*(r*1.92)
+            d.line([x0, y0, x1, y1], fill=(*cor, al), width=w)
 
     def chuva(d, cx, cy, r, cor, al):
         """Nuvem por arcos, nao por elipses inteiras.
@@ -129,7 +130,31 @@ def ilu_filme(dur):
             x = cx - r*0.6 + k * r*0.6
             d.line([x, base + r*0.26, x - 9, base + r*0.82], fill=(*cor, al), width=4)
 
+    def nublado(d, cx, cy, r, cor, al):
+        base = cy + r * 0.3
+        d.arc([cx - r*0.95, base - r*0.9, cx + r*0.05, base + r*0.05], 180, 360,
+              fill=(*cor, al), width=4)
+        d.arc([cx - r*0.35, base - r*1.2, cx + r*0.95, base + r*0.05], 185, 355,
+              fill=(*cor, al), width=4)
+        d.line([cx - r*0.92, base, cx + r*0.92, base], fill=(*cor, al), width=4)
+
+    def vento(d, cx, cy, r, cor, al):
+        for k, comp in enumerate((1.0, 0.72, 0.9)):
+            y = cy - r*0.42 + k * r*0.42
+            d.line([cx - r*0.9, y, cx + r*comp*0.6, y], fill=(*cor, al), width=4)
+            d.arc([cx + r*comp*0.3, y - r*0.26, cx + r*comp*0.92, y + r*0.26],
+                  270, 130, fill=(*cor, al), width=4)
+
+    def sol_nuvem(d, cx, cy, r, cor, al):
+        d.ellipse([cx - r*0.1, cy - r*0.95, cx + r*0.8, cy - r*0.05],
+                  outline=(*cor, al), width=4)
+        nublado(d, cx - r*0.12, cy + r*0.16, r*0.82, cor, al)
+
     MEDICOES = [("JANEIRO", sol), ("JUNHO", chuva), ("DEZEMBRO", sol)]
+    # A tira contínua mostra o caminho entre as medições: o clima nao pula de
+    # sol para chuva, ele passa por nublado e vento no meio.
+    SEQUENCIA = [sol, sol, sol_nuvem, nublado, nublado, vento, chuva, chuva,
+                 chuva, vento, nublado, sol_nuvem, sol_nuvem, sol, sol, sol]
 
     def desenha(img, d, t):
         a = veu(img, t, dur)
@@ -149,14 +174,13 @@ def ilu_filme(dur):
         texto(d, (X, yB - 78), "OBSERVAÇÃO CONTÍNUA", f_rot, ACQUA, out_cubic((t-1.6)/0.4) * a)
         p2 = out_cubic((t - 1.9) / 1.5)
         if p2 > 0:
-            n = 16
-            for i in range(n):
+            n = len(SEQUENCIA)
+            for i, glifo in enumerate(SEQUENCIA):
                 if i / n > p2: break
-                x = X + i * 82
-                d.rounded_rectangle([x, yB, x + 70, yB + 150], 5,
+                x = X + i * 88
+                d.rounded_rectangle([x, yB, x + 78, yB + 150], 5,
                                     outline=(*ACQUA, int(235 * a)), width=3)
-                for k in (yB + 10, yB + 128):   # perfuracoes da pelicula
-                    d.rectangle([x + 10, k, x + 22, k + 12], fill=(*ACQUA, int(150 * a)))
+                glifo(d, x + 39, yB + 76, 17, ACQUA, int(225 * a))
         p3 = out_cubic((t - 3.3) / 0.6)
         if p3 > 0:
             texto(d, (X, yB + 186), "o ano inteiro, dia a dia", f_leg, BRANCO, p3 * a)
@@ -242,6 +266,36 @@ def ilu_camada(dur):
         caixa(d, Y + 40, 78, "aplicações", fonte(600, 38), BRANCO, out_cubic((t - 3.1) / 0.6), a)
     return desenha
 
+# -------------------------------------------------------------------- logos
+def logos(dur):
+    """Marcas dos produtos que ja rodam sobre a arquitetura.
+
+    Entram quando a Marina cita "a Norma e a Normalyze". Se o arquivo de uma
+    delas nao existir, a peca mostra so a que existe, centralizada.
+    """
+    f_rot = fonte(600, 32)
+    arquivos = [("Norma", FOTOS / "logo-norma.png"), ("Normalyze", FOTOS / "logo-normalyze.png")]
+    marcas = []
+    for nome, cam in arquivos:
+        if cam.exists():
+            im = Image.open(cam).convert("RGBA")
+            alvo = 430
+            marcas.append(im.resize((alvo, int(im.height * alvo / im.width)), Image.LANCZOS))
+    # Terco esquerdo, empilhadas: no centro elas caem sobre o rosto da Marina.
+    X, Y, PASSO = 168, 330, 190
+    def desenha(img, d, t):
+        _, a = janela(t, 0, 1, saida=dur)
+        if not marcas: return
+        texto(d, (X, Y - 84), "JÁ EM PRODUÇÃO", f_rot, ACQUA, out_cubic(t / 0.5) * a)
+        regua(d, X, Y - 30, 96 * out_cubic(t / 0.6), 4, AZUL, a)
+        for i, im in enumerate(marcas):
+            p = out_cubic((t - 0.4 - i * 0.34) / 0.6)
+            if p <= 0: continue
+            camada = im.copy()
+            camada.putalpha(camada.getchannel("A").point(lambda v: int(v * p * a)))
+            img.alpha_composite(camada, (int(X), int(Y + i * PASSO + 18 * (1 - p))))
+    return desenha
+
 # ------------------------------------------------------------------- socios
 SOCIOS = [("Arthur Luiz", "Tecnologia", "AL", 0.0),
           ("Anaclaudia Zani", "Metodologia", "AZ", 4.4),
@@ -296,6 +350,7 @@ PECAS = [
     ("num-usuarios",   122.80,  8.5, lambda: numeros(
         [(35000, "usuários no B2C", "aplicações em produção", 0.0),
          (1200,  "usuários no B2B", "empresas e projetos-piloto", 3.6)], 8.5)),
+    ("logos-produtos", 116.90,  5.2, lambda: logos(5.2)),
     ("chip-colombia",  134.80,  5.0, lambda: chip("1ª aplicação internacional",
         ["Colômbia, 2026", "acolhimento a pessoas afetadas por desastre"], 5.0)),
     ("titulo-amalia",  158.60,  5.2, lambda: titulo("AMALIA",

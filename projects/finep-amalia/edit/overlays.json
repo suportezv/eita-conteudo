@@ -20,6 +20,11 @@
     "duration": 8.5
   },
   {
+    "file": "animacoes/logos-produtos.mov",
+    "start_in_output": 116.9,
+    "duration": 5.2
+  },
+  {
     "file": "animacoes/chip-colombia.mov",
     "start_in_output": 134.8,
     "duration": 5.0
