@@ -86,7 +86,6 @@ def titulo(txt, sub, dur, y=400):
         _, a = janela(t, 0, 1, saida=dur)
         lg = larg(txt.upper(), f_t)
         p = out_cubic(t / 0.8)
-        lg = larg(txt.upper(), f_t)
         texto(d, (W/2, y + 24 * (1 - p)), txt.upper(), f_t, ACQUA, p * a, ancora="ma")
         regua(d, W/2 - lg/2, y + 218, lg * out_cubic((t - 0.5) / 0.7), 5, AZUL, a)
         p2 = out_cubic((t - 0.75) / 0.6)
@@ -275,6 +274,7 @@ def socios(dur):
             p = out_cubic((t - atraso) / 0.6)
             if p <= 0: continue
             yy = Y + i * 158
+            cx = 210 + 14 * (1 - p)   # entra deslizando da direita
             al = int(255 * p * a)
             im = foto(ini)
             if im is not None:
