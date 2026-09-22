@@ -125,9 +125,9 @@ def cortes_de_imagem():
         # cai um quadro depois do que a soma dos ceil() preve, em sete de oito
         # fronteiras testadas. Sem esse quadro o enquadramento mudava um quadro
         # depois do corte e a troca aparecia como um solavanco.
-        fora.append((quadros + 1) / float(FPS))
+        fora.append((quadros + 0) / float(FPS))
         quadros += math.ceil((r["end"] - r["start"]) * FPS)
-    fora.append((quadros + 1) / float(FPS))
+    fora.append((quadros + 0) / float(FPS))
     return fora
 
 def plano(fim_video=443.81):
@@ -154,15 +154,22 @@ def plano(fim_video=443.81):
     kf[-1][1] = max(kf[-1][1], fim_video)
     return [(a, b, z0, z1, abs(z1 - z0) < 1e-9) for a, b, z0, z1 in kf]
 
-def dentro(T, a, b):
-    """Intervalo semiaberto [a, b).
+def dentro(_T, a, b):
+    """Intervalo semiaberto [a, b), comparado em INDICE DE QUADRO.
 
-    between() do ffmpeg e fechado nos dois lados, entao no quadro exato da
-    fronteira os dois trechos vizinhos valiam 1 e os valores somavam. O zoom
-    pulava para o teto por um quadro e o quadro inteiro dava um salto, que era o
-    que aparecia como um elemento entrando e saindo na frente de quem fala.
+    Duas armadilhas resolvidas aqui. A primeira: between() do ffmpeg e fechado
+    nos dois lados, entao na fronteira os dois trechos vizinhos valiam 1 e os
+    valores somavam, jogando o zoom para o teto por um quadro.
+
+    A segunda: comparar em segundos com tres casas decimais nao funciona. O
+    quadro 7889 vale 262.96666..., que arredondado vira 262.967, acima do tempo
+    real do quadro. O gte falhava, o lt do trecho anterior passava, e o primeiro
+    quadro depois do corte caia num vao onde nenhum trecho estava ativo: o zoom
+    ia para o valor de fallback por exatamente um quadro. Era o solavanco que
+    sobrava nas trocas de locutor. Em indice de quadro inteiro nao ha
+    arredondamento possivel.
     """
-    return f"gte({T},{a:.3f})*lt({T},{b:.3f})"
+    return f"gte(on,{int(round(a * FPS))})*lt(on,{int(round(b * FPS))})"
 
 def expr_z(kfs):
     T = f"(on/{FPS})"
@@ -172,7 +179,8 @@ def expr_z(kfs):
         if corte or abs(z1 - z0) < 1e-6:
             val = f"{z1:.4f}"
         else:
-            u = f"(({T}-{a:.3f})/{b-a:.3f})"
+            k0, k1 = int(round(a * FPS)), int(round(b * FPS))
+            u = f"((on-{k0})/{max(1, k1-k0)})"
             val = f"({z0:.4f}+{z1-z0:.4f}*(0.5-0.5*cos(PI*{u})))"
         termos.append(f"{dentro(T, a, b)}*{val}")
     # Com os intervalos semiabertos a soma tem exatamente um termo ativo por
